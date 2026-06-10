@@ -1,0 +1,23 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-saudi-blue: #0A385A;
+  --color-saudi-orange: #da6d3f;
+  --color-saudi-light-blue: #f8fbff;
+  --font-sans: 'Poppins', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+.italic-accent {
+  font-style: italic;
+  color: #da6d3f;
+}

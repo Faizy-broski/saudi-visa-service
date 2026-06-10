@@ -32,7 +32,7 @@ const FALLBACK_SERVICES = [
     id: 'tourist',
     name: 'Tourist Visa',
     slug: 'tourist',
-    tagline: 'Discover Saudi',
+    tagline: 'Discover The Kingdom',
     description: 'Explore Riyadh, AlUla, Jeddah and the Red Sea. Multi-entry options for short stays and long itineraries.',
     price_usd: 149,
     duration: '90 days',

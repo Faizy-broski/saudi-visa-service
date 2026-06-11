@@ -166,14 +166,14 @@ export default function AdminLayout({
         >
           {/* Logo + mobile close */}
           <div
-            className="shrink-0 px-5 py-3 border-b flex items-start justify-between"
+            className="shrink-0 px-5 py-3 border-b flex items-start justify-between md:justify-center"
             style={{ borderColor: "rgba(255,255,255,0.08)" }}
           >
-            <Link href="/admin" className="block">
+            <Link href="/admin" className="flex justify-center items-center">
               <img
                 src="/images/logo.png"
                 alt="Saudi Visa Service"
-                className="h-10 w-100"
+                className="h-10 w-36"
               />
             </Link>
             {/* Close button — mobile only */}

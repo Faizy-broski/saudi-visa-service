@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import {usePathname} from "next/navigation";
 
 export default function FooterBanner() {
+  const pathname = usePathname();
   return (
     <>
-      <section className="relative overflow-hidden rounded-t-[80px]">
+      <section className={`relative overflow-hidden ${pathname === "/" ? "rounded-t-[40px] md:rounded-t-[80px]" : "rounded-0"}`}>
         {/* Background image */}
         <img
           src="/images/riyadh-sunset.svg"
@@ -13,25 +15,23 @@ export default function FooterBanner() {
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
 
-        {/* <div className="inset-0 absolute bg-linear-to-b from-0% from-black/0 to-black/70"/> */}
-
         {/* ── TOP BANNER ── */}
-        <div className="relative z-10 ">
-          <div className="max-w-6xl mx-auto px-6 pt-24 py-2">
+        <div className="relative z-10">
+          <div className="max-w-6xl mx-auto px-4 md:px-6 pt-16 md:pt-24 pb-8">
             <div className="max-w-xl">
               <span className="mb-4 block text-xs font-bold uppercase tracking-[0.2em] text-white">
                 Now Departing
               </span>
 
-              <h2 className="mb-6 text-[clamp(32px,4vw,56px)] leading-tight text-white">
+              <h2 className="mb-6 text-[clamp(28px,4vw,56px)] leading-tight font-semibold text-white">
                 Your Saudi <br />
                 Journey
-                <span className="italic font-bold ">Begins Here.</span>
+                <span className="italic font-bold"> Begins Here.</span>
               </h2>
 
               <p className="mb-10 max-w-lg text-xs leading-relaxed text-white/75">
                 Whether you travel for sacred rites or to discover the Kingdom —
-                we'll prepare every document so all that's left is the flight.
+                we&apos;ll prepare every document so all that&apos;s left is the flight.
               </p>
 
               <Link
@@ -44,21 +44,18 @@ export default function FooterBanner() {
           </div>
         </div>
 
-        {/* Divider */}
-        {/* <div className="relative z-10 border-t border-white/10" /> */}
-
         {/* ── FOOTER GRID ── */}
-        <div className="relative z-10 ">
-          <div className="max-w-6xl mx-auto py-16">
-            <div className="grid grid-cols-1 text-white md:grid-cols-5">
+        <div className="relative z-10">
+          <div className="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16">
+            <div className="grid grid-cols-2 gap-8 text-white md:grid-cols-5">
               {/* Column 1 */}
-              <div className="w-64 col-span-2">
+              <div className="col-span-2 md:col-span-2">
                 <img
                   src="/images/logo.png"
                   alt="Saudi Visa Service"
-                  className="mb-4 w-full h-40"
+                  className="mb-4 h-20 md:h-28 w-auto object-contain"
                 />
-                <p className="text-xs leading-relaxed text-white">
+                <p className="text-xs leading-relaxed text-white/80 max-w-[240px]">
                   Providing reliable, transparent, and hassle-free Saudi visa
                   services.
                 </p>
@@ -81,7 +78,7 @@ export default function FooterBanner() {
                     <li key={label}>
                       <Link
                         href={href}
-                        className="text-xs text-white transition hover:text-white/80"
+                        className="text-xs text-white/80 transition hover:text-white"
                       >
                         {label}
                       </Link>
@@ -93,7 +90,7 @@ export default function FooterBanner() {
               {/* Column 3 */}
               <div>
                 <h4 className="mb-5 text-sm font-semibold uppercase tracking-widest text-white">
-                  Link Direct
+                  Quick Links
                 </h4>
                 <ul className="space-y-3">
                   {[
@@ -106,7 +103,7 @@ export default function FooterBanner() {
                     <li key={label}>
                       <Link
                         href={href}
-                        className="text-xs text-white transition hover:text-white/80"
+                        className="text-xs text-white/80 transition hover:text-white"
                       >
                         {label}
                       </Link>
@@ -121,7 +118,7 @@ export default function FooterBanner() {
                   Contact Info
                 </h4>
 
-                <ul className="space-y-3 text-xs text-white">
+                <ul className="space-y-3 text-xs text-white/80">
                   <li>
                     Visa Operations Center
                     <br />

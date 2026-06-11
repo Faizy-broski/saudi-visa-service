@@ -117,10 +117,14 @@ export default function AboutPage() {
 
       {/* Stats bar */}
       <section style={{ background: '#0A385A' }}>
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
-            {STATS.map(({ value, label }) => (
-              <div key={label} className="py-10 text-center text-white">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4">
+            {STATS.map(({ value, label }, i) => (
+              <div
+                key={label}
+                className="py-10 text-center text-white"
+                style={{ borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.1)' : undefined }}
+              >
                 <div className="text-3xl font-bold mb-1" style={{ color: '#3CA5D4' }}>{value}</div>
                 <div className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.55)' }}>{label}</div>
               </div>
@@ -130,23 +134,23 @@ export default function AboutPage() {
       </section>
 
       {/* Mission + Story */}
-      <section className="py-24" style={{ background: '#f8fbff' }}>
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+      <section className="py-16 md:py-24" style={{ background: '#f8fbff' }}>
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest block mb-4" style={{ color: '#3CA5D4' }}>Our Mission</span>
-              <h2 className="text-3xl font-bold mb-6 leading-tight" style={{ color: '#0A385A' }}>
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] block mb-4 text-[#da6d3f]">Our Mission</span>
+              <h2 className="text-3xl md:text-4xl font-semibold mb-6 leading-tight text-[#0A385A]">
                 Making Saudi Arabia accessible to the world
               </h2>
-              <p className="text-sm leading-relaxed mb-5" style={{ color: '#6b7280' }}>
+              <p className="text-sm leading-relaxed mb-5 text-gray-600">
                 We started Saudi Visa Service because we saw how unnecessarily complicated the visa process was for ordinary travellers. Long queues, confusing paperwork, and unreliable agents left people frustrated before their journey even began.
               </p>
-              <p className="text-sm leading-relaxed mb-8" style={{ color: '#6b7280' }}>
+              <p className="text-sm leading-relaxed mb-8 text-gray-600">
                 Our platform simplifies the entire process — from choosing the right visa to tracking your application in real time. We combine technology with human expertise to deliver results that are fast, accurate, and stress-free.
               </p>
               <Link
                 href="/booking"
-                className="inline-flex items-center gap-2 font-bold text-sm px-7 py-3.5 rounded-full text-white"
+                className="inline-flex items-center gap-2 font-bold text-sm px-7 py-3.5 rounded-full text-white transition-all hover:opacity-90"
                 style={{ background: 'linear-gradient(to right, #3CA5D4, #0E3254)' }}
               >
                 Start Your Application →
@@ -162,7 +166,7 @@ export default function AboutPage() {
                     {year}
                   </div>
                   <div className="pt-1">
-                    <p className="text-sm leading-relaxed" style={{ color: '#374151' }}>{event}</p>
+                    <p className="text-sm leading-relaxed text-gray-700">{event}</p>
                   </div>
                 </div>
               ))}
@@ -172,18 +176,18 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="text-center mb-14">
-            <span className="text-xs font-bold uppercase tracking-widest block mb-3" style={{ color: '#3CA5D4' }}>What We Stand For</span>
-            <h2 className="text-3xl font-bold" style={{ color: '#0A385A' }}>Our Core Values</h2>
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-14">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] block mb-4 text-[#da6d3f]">What We Stand For</span>
+            <h2 className="text-3xl md:text-4xl font-semibold text-[#0A385A]">Our Core Values</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {VALUES.map(({ title, desc, icon }) => (
               <div
                 key={title}
-                className="p-6 rounded-2xl"
-                style={{ border: '1px solid #eef2f7', background: '#f8fbff' }}
+                className="p-6 rounded-2xl border border-[#eef2f7]"
+                style={{ background: '#f8fbff' }}
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
@@ -191,8 +195,8 @@ export default function AboutPage() {
                 >
                   {icon}
                 </div>
-                <h3 className="font-bold text-base mb-2" style={{ color: '#0A385A' }}>{title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: '#6b7280' }}>{desc}</p>
+                <h3 className="font-semibold text-base mb-2 text-[#0A385A]">{title}</h3>
+                <p className="text-sm leading-relaxed text-gray-600">{desc}</p>
               </div>
             ))}
           </div>
@@ -200,19 +204,19 @@ export default function AboutPage() {
       </section>
 
       {/* Services overview */}
-      <section className="py-24" style={{ background: '#f8fbff' }}>
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="text-center mb-14">
-            <span className="text-xs font-bold uppercase tracking-widest block mb-3" style={{ color: '#3CA5D4' }}>What We Offer</span>
-            <h2 className="text-3xl font-bold" style={{ color: '#0A385A' }}>Our Visa Services</h2>
+      <section className="py-16 md:py-24" style={{ background: '#f8fbff' }}>
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <div className="text-center mb-12 md:mb-14">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] block mb-4 text-[#da6d3f]">What We Offer</span>
+            <h2 className="text-3xl md:text-4xl font-semibold text-[#0A385A]">Our Visa Services</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {SERVICES_OVERVIEW.map(({ name, desc, icon, href }) => (
               <Link
                 key={name}
                 href={href}
-                className="p-8 rounded-2xl bg-white group transition-shadow hover:shadow-lg"
-                style={{ border: '1px solid #eef2f7', textDecoration: 'none' }}
+                className="p-8 rounded-2xl bg-white border border-[#eef2f7] group transition-shadow hover:shadow-[0_8px_32px_rgba(10,56,90,0.10)]"
+                style={{ textDecoration: 'none' }}
               >
                 <div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
@@ -220,9 +224,9 @@ export default function AboutPage() {
                 >
                   {icon}
                 </div>
-                <h3 className="font-bold text-lg mb-3" style={{ color: '#0A385A' }}>{name}</h3>
-                <p className="text-sm leading-relaxed mb-5" style={{ color: '#6b7280' }}>{desc}</p>
-                <span className="text-xs font-bold" style={{ color: '#3CA5D4' }}>Learn more →</span>
+                <h3 className="font-semibold text-lg mb-3 text-[#0A385A]">{name}</h3>
+                <p className="text-sm leading-relaxed mb-5 text-gray-600">{desc}</p>
+                <span className="text-xs font-bold" style={{ color: '#da6d3f' }}>Learn more →</span>
               </Link>
             ))}
           </div>
@@ -231,26 +235,26 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section
-        className="py-20 text-white text-center"
+        className="py-16 md:py-20 text-white text-center"
         style={{ background: 'linear-gradient(135deg, #0A385A 0%, #3CA5D4 100%)' }}
       >
-        <div className="container mx-auto px-6 max-w-xl">
-          <h2 className="text-3xl font-bold mb-4">Ready to Begin?</h2>
-          <p className="text-sm mb-10 leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
+        <div className="max-w-xl mx-auto px-4 md:px-6">
+          <h2 className="text-3xl md:text-4xl font-semibold mb-4">Ready to Begin?</h2>
+          <p className="text-sm mb-10 leading-relaxed text-white/75">
             Join thousands of travellers who trust us with their Saudi visa. Apply today and get a decision in as little as 48 hours.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/booking"
-              className="font-bold text-sm px-8 py-4 rounded-full"
-              style={{ background: '#ffffff', color: '#0A385A', textDecoration: 'none' }}
+              className="inline-flex items-center gap-2 font-bold text-sm px-8 py-3.5 rounded-full transition-all hover:opacity-90"
+              style={{ background: '#ffffff', color: '#0A385A' }}
             >
               Apply for Visa →
             </Link>
             <Link
               href="/contact"
-              className="font-bold text-sm px-8 py-4 rounded-full"
-              style={{ background: 'rgba(255,255,255,0.12)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.3)', textDecoration: 'none' }}
+              className="inline-flex items-center gap-2 font-bold text-sm px-8 py-3.5 rounded-full transition-all hover:bg-white/20"
+              style={{ background: 'rgba(255,255,255,0.12)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.3)' }}
             >
               Talk to Us
             </Link>

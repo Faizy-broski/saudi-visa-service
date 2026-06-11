@@ -23,7 +23,7 @@ export default function PageHero({ tag, title, subtitle, icon, breadcrumbs }: Pa
           backgroundSize: '48px 48px',
         }}
       />
-      <div className="container mx-auto px-6 relative z-10 text-center max-w-2xl">
+      <div className="max-w-2xl mx-auto px-4 md:px-6 relative z-10 text-center">
 
         {/* Breadcrumb */}
         {breadcrumbs && breadcrumbs.length > 0 && (

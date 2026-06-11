@@ -17,6 +17,47 @@ body {
   overflow-x: hidden;
 }
 
+/* ── Design system utilities ── */
+
+/* Section eyebrow label — orange, all-caps, consistent spacing */
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #da6d3f;
+}
+
+/* Section heading — navy, responsive 3xl→4xl */
+.section-heading {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #0A385A;
+}
+
+/* Standard content section wrapper */
+.section-container {
+  max-width: 72rem; /* max-w-6xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 768px) {
+  .section-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Shared card surface */
+.card-surface {
+  background: #ffffff;
+  border: 1px solid #eef2f7;
+  border-radius: 1rem;
+}
+
 .italic-accent {
   font-style: italic;
   color: #da6d3f;

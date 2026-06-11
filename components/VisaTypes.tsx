@@ -1,6 +1,9 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { m, useReducedMotion } from 'framer-motion';
+import { FadeUp, ease } from '@/lib/motion';
+import { StaggerChildren, StaggerItem } from '@/lib/motion';
 
 interface VisaService {
   id: string;
@@ -39,9 +42,15 @@ function BoltIcon() {
 }
 
 function VisaCard({ svc, height }: { svc: VisaService; height: number }) {
+  const reduce = useReducedMotion();
   const img = svc.image_url || FALLBACK_IMAGES[svc.slug] || 'https://images.unsplash.com/photo-1564769625905-50e93615e769?w=800&q=80';
   return (
-    <div className="relative group overflow-hidden rounded-3xl w-full flex-shrink-0" style={{ height }}>
+    <m.div
+      className="relative group overflow-hidden rounded-3xl w-full flex-shrink-0"
+      style={{ height }}
+      whileHover={reduce ? undefined : { y: -6 }}
+      transition={{ duration: 0.35, ease }}
+    >
       <img
         src={img}
         alt={svc.name}
@@ -75,7 +84,7 @@ function VisaCard({ svc, height }: { svc: VisaService; height: number }) {
           <span className="text-2xl font-bold text-white">${svc.price_usd}</span>
         </div>
       </div>
-    </div>
+    </m.div>
   );
 }
 
@@ -90,27 +99,36 @@ export default function VisaTypes({ services }: { services: VisaService[] }) {
   const next = useCallback(() => setCurrentIndex((i) => Math.min(maxIndex, i + 1)), [maxIndex]);
 
   return (
-    <section className="py-16 md:py-24 container mx-auto px-4 md:px-6" id="services">
+    <section className="py-16 md:py-24 max-w-6xl mx-auto px-4 md:px-6" id="services">
+      {/* Section header */}
       <div className="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-16 gap-4 md:gap-6">
         <div className="max-w-xl">
-          <span className="text-xs font-bold text-saudi-orange uppercase tracking-[0.2em]">Our Visa Services</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-3 md:mt-4">
-            Your gateway into <span className="italic-accent italic">Saudi Arabia.</span>
-          </h2>
+          <FadeUp>
+            <span className="text-xs font-light text-saudi-orange uppercase tracking-[0.2em]">Our Visa Services</span>
+            <h2 className="text-3xl md:text-4xl font-semibold text-[#0A385A] mt-3 md:mt-4">
+              Three Doorways into <span className="italic font-bold text-[#da6d3f]">Saudi Arabia.</span>
+            </h2>
+          </FadeUp>
         </div>
-        <p className="text-sm text-gray-600 max-w-sm">
-          Each application is treated as a private journey — curated documents, human attention, and steady communication
-          until your visa is in hand.
-        </p>
+        <FadeUp delay={0.1} className="text-sm text-gray-600 max-w-sm">
+          <p>
+            Each application is treated as a private journey — curated documents, human attention, and steady communication
+            until your visa is in hand.
+          </p>
+        </FadeUp>
       </div>
 
       {/* ── Mobile layout: vertical stack ── */}
-      <div className="md:hidden flex flex-col gap-5">
-        {services.map((svc) => <VisaCard key={svc.id} svc={svc} height={300} />)}
+      <StaggerChildren className="md:hidden flex flex-col gap-5" stagger={0.1}>
+        {services.map((svc) => (
+          <StaggerItem key={svc.id}>
+            <VisaCard svc={svc} height={300} />
+          </StaggerItem>
+        ))}
         {services.length === 0 && (
           <div className="text-center py-16 text-gray-400">No services configured yet.</div>
         )}
-      </div>
+      </StaggerChildren>
 
       {/* ── Desktop layout: horizontal slider ── */}
       <div className="hidden md:block relative">

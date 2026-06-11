@@ -65,14 +65,14 @@ export default function ContactPage() {
       />
 
       {/* Info cards */}
-      <section style={{ background: '#f8fbff' }} className="pt-16 pb-4">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <section className="pt-16 md:pt-20 pb-6" style={{ background: '#f8fbff' }}>
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {INFO_CARDS.map(({ title, value, sub, icon }) => (
               <div
                 key={title}
-                className="p-6 rounded-2xl bg-white"
-                style={{ border: '1px solid #eef2f7', boxShadow: '0 2px 16px rgba(10,56,90,0.04)' }}
+                className="p-6 rounded-2xl bg-white border border-[#eef2f7]"
+                style={{ boxShadow: '0 2px 16px rgba(10,56,90,0.04)' }}
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
@@ -80,9 +80,9 @@ export default function ContactPage() {
                 >
                   {icon}
                 </div>
-                <div className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: '#0A385A', opacity: 0.45 }}>{title}</div>
-                <div className="text-sm font-semibold mb-1" style={{ color: '#0A385A' }}>{value}</div>
-                <div className="text-xs" style={{ color: '#9ca3af' }}>{sub}</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest mb-1 text-[#0A385A] opacity-45">{title}</div>
+                <div className="text-sm font-semibold mb-1 text-[#0A385A]">{value}</div>
+                <div className="text-xs text-gray-400">{sub}</div>
               </div>
             ))}
           </div>
@@ -90,11 +90,11 @@ export default function ContactPage() {
       </section>
 
       {/* Map */}
-      <section style={{ background: '#f8fbff' }} className="py-10">
-        <div className="container mx-auto px-6 max-w-5xl">
+      <section className="py-10" style={{ background: '#f8fbff' }}>
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <div
-            className="rounded-2xl overflow-hidden"
-            style={{ border: '1px solid #eef2f7', boxShadow: '0 2px 24px rgba(10,56,90,0.07)', height: '380px' }}
+            className="rounded-2xl overflow-hidden border border-[#eef2f7]"
+            style={{ boxShadow: '0 2px 24px rgba(10,56,90,0.07)', height: '380px' }}
           >
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3713.4621564846144!2d39.18967171505294!3d21.485811285796714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3d01fb1137e59%3A0xe059f4d5c5b9c8b4!2sJeddah%2C%20Saudi%20Arabia!5e0!3m2!1sen!2s!4v1717900000000!5m2!1sen!2s"
@@ -107,7 +107,7 @@ export default function ContactPage() {
               title="Saudi Visa Service Office Location — Jeddah, Saudi Arabia"
             />
           </div>
-          <p className="text-xs text-center mt-3" style={{ color: '#9ca3af' }}>
+          <p className="text-xs text-center mt-3 text-gray-400">
             Visa Operations Centre · Jeddah, Saudi Arabia
           </p>
         </div>

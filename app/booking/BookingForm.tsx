@@ -306,7 +306,7 @@ function PaymentStep({
       <button
         type="submit"
         disabled={!stripe || processing}
-        className="w-full py-4 rounded-xl font-bold text-sm text-white disabled:opacity-60 flex items-center justify-center gap-2"
+        className="w-full py-4 rounded-full font-bold text-sm text-white disabled:opacity-60 flex items-center justify-center gap-2"
         style={{ background: 'linear-gradient(to right, #3CA5D4, #0E3254)' }}
       >
         {processing ? (
@@ -389,7 +389,7 @@ export default function BookingForm({ services, stripeKey }: { services: VisaSer
 
   if (referenceNumber) {
     return (
-      <div className="container mx-auto px-6 py-20 max-w-lg text-center">
+      <div className="max-w-lg mx-auto px-4 md:px-6 py-20 text-center">
         <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style={{ background: 'linear-gradient(135deg, #3CA5D4, #0E3254)' }}>
           <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2.5} className="w-10 h-10"><polyline points="20 6 9 17 4 12" /></svg>
         </div>
@@ -409,7 +409,7 @@ export default function BookingForm({ services, stripeKey }: { services: VisaSer
   return (
     <>
       {/* Hero */}
-      <div className="container mx-auto px-6 py-12 max-w-3xl">
+      <div className="max-w-3xl mx-auto px-4 md:px-6 py-12">
         <StepBar current={step} total={5} />
 
         {/* ── Step 1: Service Selection ── */}
@@ -620,13 +620,13 @@ export default function BookingForm({ services, stripeKey }: { services: VisaSer
         {step < 5 && (
           <div className={`flex gap-4 mt-10 ${step === 1 ? 'justify-end' : 'justify-between'}`}>
             {step > 1 && (
-              <button onClick={back} className="px-6 py-3 rounded-xl font-semibold text-sm border transition-all" style={{ color: '#0A385A', borderColor: '#e5e7eb' }}>
+              <button onClick={back} className="px-6 py-3 rounded-full font-semibold text-sm border transition-all hover:bg-[#f8fbff]" style={{ color: '#0A385A', borderColor: '#e5e7eb' }}>
                 ← Back
               </button>
             )}
             <button
               onClick={next}
-              className="px-8 py-3 rounded-xl font-bold text-sm text-white"
+              className="px-8 py-3 rounded-full font-bold text-sm text-white transition-opacity hover:opacity-90"
               style={{ background: 'linear-gradient(to right, #3CA5D4, #0E3254)' }}
             >
               {step === 4 ? 'Review & Pay →' : 'Continue →'}
@@ -634,7 +634,7 @@ export default function BookingForm({ services, stripeKey }: { services: VisaSer
           </div>
         )}
         {step === 5 && (
-          <button onClick={back} className="mt-4 px-6 py-3 rounded-xl font-semibold text-sm border" style={{ color: '#0A385A', borderColor: '#e5e7eb' }}>
+          <button onClick={back} className="mt-4 px-6 py-3 rounded-full font-semibold text-sm border hover:bg-[#f8fbff] transition-colors" style={{ color: '#0A385A', borderColor: '#e5e7eb' }}>
             ← Back
           </button>
         )}

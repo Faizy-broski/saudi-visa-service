@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import MotionProvider from "@/components/MotionProvider";
 
 export const metadata: Metadata = {
   title: "Saudi Visa Service - Travel Made Easy",
@@ -21,7 +22,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-white text-saudi-blue overflow-x-hidden">
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

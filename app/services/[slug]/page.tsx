@@ -96,7 +96,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       <section className="relative overflow-hidden" style={{ minHeight: '520px' }}>
         <img src={img} alt={service.name} className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(10,56,90,0.92) 0%, rgba(10,56,90,0.65) 60%, rgba(10,56,90,0.2) 100%)' }} />
-        <div className="relative z-10 container mx-auto px-6 pt-44 pb-20 flex flex-col justify-end" style={{ minHeight: '520px' }}>
+        <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-6 pt-44 pb-16 md:pb-20 flex flex-col justify-end" style={{ minHeight: '520px' }}>
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-xs mb-6 flex-wrap">
             {[
@@ -117,7 +117,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                       {crumb.label}
                     </Link>
                   ) : (
-                    <span className="font-semibold" style={{ color: '#ffffff' }}>{crumb.label}</span>
+                    <span className="font-semibold text-white">{crumb.label}</span>
                   )}
                 </span>
               );
@@ -134,20 +134,20 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <h1 className="font-bold text-white mb-4" style={{ fontSize: 'clamp(36px,5vw,64px)', lineHeight: 1.1 }}>
             {service.name}
           </h1>
-          <p className="text-sm leading-relaxed max-w-xl mb-8" style={{ color: 'rgba(255,255,255,0.78)' }}>
+          <p className="text-sm leading-relaxed max-w-xl mb-8 text-white/80">
             {service.description}
           </p>
           {/* Quick stats */}
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-3 md:gap-4">
             {[
               { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>, label: 'From', value: `$${service.price_usd} USD` },
               { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, label: 'Validity', value: service.duration },
               { icon: <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>, label: 'Processing', value: service.processing_time },
             ].map(({ icon, label, value }) => (
-              <div key={label} className="flex items-center gap-3 px-5 py-3 rounded-2xl" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)' }}>
-                <span style={{ color: 'rgba(255,255,255,0.7)' }}>{icon}</span>
+              <div key={label} className="flex items-center gap-3 px-4 md:px-5 py-3 rounded-2xl" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)' }}>
+                <span className="text-white/70">{icon}</span>
                 <div>
-                  <div className="text-[9px] uppercase tracking-widest font-bold" style={{ color: 'rgba(255,255,255,0.5)' }}>{label}</div>
+                  <div className="text-[9px] uppercase tracking-widest font-bold text-white/50">{label}</div>
                   <div className="text-sm font-bold text-white">{value}</div>
                 </div>
               </div>
@@ -157,17 +157,17 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       </section>
 
       {/* Main content */}
-      <section style={{ background: '#f8fbff' }} className="py-20">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="grid lg:grid-cols-5 gap-10">
+      <section className="py-16 md:py-20" style={{ background: '#f8fbff' }}>
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <div className="grid lg:grid-cols-5 gap-8 md:gap-10">
 
             {/* Left: Features + Requirements */}
-            <div className="lg:col-span-3 space-y-8">
+            <div className="lg:col-span-3 space-y-6 md:space-y-8">
 
               {/* What's included */}
               {service.features?.length > 0 && (
-                <div className="rounded-2xl bg-white p-8" style={{ border: '1px solid #eef2f7' }}>
-                  <h2 className="font-bold text-xl mb-6" style={{ color: '#0A385A' }}>What's Included</h2>
+                <div className="rounded-2xl bg-white p-6 md:p-8 border border-[#eef2f7]">
+                  <h2 className="font-semibold text-xl mb-6 text-[#0A385A]">What&apos;s Included</h2>
                   <ul className="space-y-4">
                     {service.features.map((f: string) => (
                       <li key={f} className="flex items-start gap-3">
@@ -177,7 +177,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                         >
                           <CheckIcon />
                         </span>
-                        <span className="text-sm leading-relaxed" style={{ color: '#374151' }}>{f}</span>
+                        <span className="text-sm leading-relaxed text-gray-700">{f}</span>
                       </li>
                     ))}
                   </ul>
@@ -186,8 +186,8 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
               {/* Requirements */}
               {service.requirements?.length > 0 && (
-                <div className="rounded-2xl bg-white p-8" style={{ border: '1px solid #eef2f7' }}>
-                  <h2 className="font-bold text-xl mb-6" style={{ color: '#0A385A' }}>Required Documents</h2>
+                <div className="rounded-2xl bg-white p-6 md:p-8 border border-[#eef2f7]">
+                  <h2 className="font-semibold text-xl mb-6 text-[#0A385A]">Required Documents</h2>
                   <ul className="space-y-4">
                     {service.requirements.map((r: string) => (
                       <li key={r} className="flex items-start gap-3">
@@ -199,7 +199,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
                           </svg>
                         </span>
-                        <span className="text-sm leading-relaxed" style={{ color: '#374151' }}>{r}</span>
+                        <span className="text-sm leading-relaxed text-gray-700">{r}</span>
                       </li>
                     ))}
                   </ul>
@@ -207,8 +207,8 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               )}
 
               {/* Process steps */}
-              <div className="rounded-2xl bg-white p-8" style={{ border: '1px solid #eef2f7' }}>
-                <h2 className="font-bold text-xl mb-8" style={{ color: '#0A385A' }}>How It Works</h2>
+              <div className="rounded-2xl bg-white p-6 md:p-8 border border-[#eef2f7]">
+                <h2 className="font-semibold text-xl mb-8 text-[#0A385A]">How It Works</h2>
                 <div className="space-y-6">
                   {PROCESS_STEPS.map(({ step, title, desc }, i) => (
                     <div key={step} className="flex gap-5 items-start">
@@ -219,8 +219,8 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                         {step}
                       </div>
                       <div>
-                        <div className="font-bold text-sm mb-1" style={{ color: '#0A385A' }}>{title}</div>
-                        <p className="text-sm leading-relaxed" style={{ color: '#6b7280' }}>{desc}</p>
+                        <div className="font-semibold text-sm mb-1 text-[#0A385A]">{title}</div>
+                        <p className="text-sm leading-relaxed text-gray-600">{desc}</p>
                       </div>
                     </div>
                   ))}
@@ -231,14 +231,14 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             {/* Right: Booking card */}
             <div className="lg:col-span-2">
               <div
-                className="rounded-2xl overflow-hidden sticky top-28"
-                style={{ border: '1px solid #eef2f7', boxShadow: '0 8px 40px rgba(10,56,90,0.10)' }}
+                className="rounded-2xl overflow-hidden lg:sticky lg:top-28 border border-[#eef2f7]"
+                style={{ boxShadow: '0 8px 40px rgba(10,56,90,0.10)' }}
               >
                 {/* Card header */}
                 <div className="p-6 text-white" style={{ background: `linear-gradient(135deg, ${accent} 0%, #0E3254 100%)` }}>
-                  <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,255,255,0.6)' }}>Service Fee</div>
+                  <div className="text-xs font-bold uppercase tracking-widest mb-1 text-white/60">Service Fee</div>
                   <div className="text-4xl font-bold mb-1">${service.price_usd}</div>
-                  <div className="text-xs" style={{ color: 'rgba(255,255,255,0.65)' }}>per person · USD</div>
+                  <div className="text-xs text-white/65">per person · USD</div>
                 </div>
 
                 {/* Highlights */}
@@ -249,9 +249,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                     { label: 'Application Type', value: 'Online — 100% Digital' },
                     { label: 'Support', value: 'Email & Phone' },
                   ].map(({ label, value }) => (
-                    <div key={label} className="flex items-center justify-between text-sm py-2 border-b last:border-b-0" style={{ borderColor: '#eef2f7' }}>
-                      <span style={{ color: '#9ca3af' }}>{label}</span>
-                      <span className="font-semibold" style={{ color: '#0A385A' }}>{value}</span>
+                    <div key={label} className="flex items-center justify-between text-sm py-2 border-b last:border-b-0 border-[#eef2f7]">
+                      <span className="text-gray-400">{label}</span>
+                      <span className="font-semibold text-[#0A385A]">{value}</span>
                     </div>
                   ))}
                 </div>
@@ -260,15 +260,14 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 <div className="px-6 pb-6 bg-white space-y-3">
                   <Link
                     href={`/booking?service=${service.slug}`}
-                    className="block text-center py-4 rounded-xl font-bold text-sm text-white transition-opacity hover:opacity-90"
-                    style={{ background: `linear-gradient(to right, #3CA5D4, #0E3254)` }}
+                    className="block text-center py-4 rounded-full font-bold text-sm text-white transition-opacity hover:opacity-90"
+                    style={{ background: 'linear-gradient(to right, #3CA5D4, #0E3254)' }}
                   >
                     Apply for {service.name} →
                   </Link>
                   <Link
                     href="/contact"
-                    className="block text-center py-3 rounded-xl font-semibold text-sm border transition-colors"
-                    style={{ color: '#0A385A', borderColor: '#eef2f7' }}
+                    className="block text-center py-3 rounded-full font-semibold text-sm border border-[#eef2f7] text-[#0A385A] transition-colors hover:bg-[#f8fbff]"
                   >
                     Have a question?
                   </Link>
@@ -281,17 +280,17 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
       {/* Other services */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <h2 className="font-bold text-xl mb-8" style={{ color: '#0A385A' }}>Other Services</h2>
-          <div className="grid sm:grid-cols-3 gap-5">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <h2 className="font-semibold text-xl md:text-2xl mb-8 text-[#0A385A]">Other Services</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {Object.values(FALLBACK_SERVICES)
               .filter((s: any) => s.slug !== slug)
               .map((s: any) => (
                 <Link
                   key={s.slug}
                   href={`/services/${s.slug}`}
-                  className="rounded-2xl overflow-hidden group block"
-                  style={{ border: '1px solid #eef2f7', textDecoration: 'none' }}
+                  className="rounded-2xl overflow-hidden group block border border-[#eef2f7] transition-shadow hover:shadow-[0_8px_32px_rgba(10,56,90,0.10)]"
+                  style={{ textDecoration: 'none' }}
                 >
                   <div className="relative h-36 overflow-hidden">
                     <img src={s.image_url} alt={s.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -302,8 +301,8 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                     </div>
                   </div>
                   <div className="p-4">
-                    <p className="text-xs leading-relaxed line-clamp-2" style={{ color: '#6b7280' }}>{s.description}</p>
-                    <span className="text-xs font-bold mt-3 block" style={{ color: '#3CA5D4' }}>View Details →</span>
+                    <p className="text-xs leading-relaxed line-clamp-2 text-gray-600">{s.description}</p>
+                    <span className="text-xs font-bold mt-3 block" style={{ color: '#da6d3f' }}>View Details →</span>
                   </div>
                 </Link>
               ))}

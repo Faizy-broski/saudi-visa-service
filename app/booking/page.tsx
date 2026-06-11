@@ -8,6 +8,13 @@ import PageHero from '@/components/PageHero';
 
 export const dynamic = 'force-dynamic';
 
+export interface BookingFormConfig {
+  passport: 'required' | 'optional' | 'hidden';
+  id_card: 'required' | 'optional' | 'hidden';
+  photo: 'required' | 'optional' | 'hidden';
+  custom_docs: { key: string; label: string; required: boolean }[];
+}
+
 export interface VisaService {
   id: string;
   name: string;
@@ -21,6 +28,7 @@ export interface VisaService {
   requirements: string[];
   accent_color: string;
   image_url?: string;
+  booking_form_config?: BookingFormConfig | null;
 }
 
 const FALLBACK_SERVICES: VisaService[] = [
@@ -75,7 +83,7 @@ export default async function BookingPage() {
     const supabase = createAdminClient();
     const { data } = await supabase
       .from('visa_services')
-      .select('id, name, slug, tagline, description, price_usd, duration, processing_time, features, requirements, accent_color, image_url')
+      .select('*')
       .eq('active', true)
       .order('display_order');
 

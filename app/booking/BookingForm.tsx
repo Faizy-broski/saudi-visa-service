@@ -3,7 +3,7 @@
 import { useState, useRef, useMemo } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import type { VisaService } from './page';
+import type { VisaService, BookingFormConfig } from './page';
 
 /* ─── Types ─── */
 interface FormData {
@@ -196,9 +196,9 @@ const CARD_OPTIONS = {
 };
 
 function PaymentStep({
-  form, stripeKey, onSuccess,
+  form, customFiles, stripeKey, onSuccess,
 }: {
-  form: FormData; stripeKey: string; onSuccess: (ref: string) => void;
+  form: FormData; customFiles: Record<string, File | null>; stripeKey: string; onSuccess: (ref: string) => void;
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -243,6 +243,9 @@ function PaymentStep({
       Object.entries(form).forEach(([k, v]) => {
         if (v instanceof File) fd.append(k, v);
         else if (v !== null && v !== undefined) fd.append(k, String(v));
+      });
+      Object.entries(customFiles).forEach(([k, v]) => {
+        if (v instanceof File) fd.append(`custom_${k}`, v);
       });
       fd.append('paymentIntentId', paymentIntent.id);
       fd.append('amountUsd', (piRes.amount / 100).toFixed(2));
@@ -306,7 +309,7 @@ function PaymentStep({
       <button
         type="submit"
         disabled={!stripe || processing}
-        className="w-full py-4 rounded-full font-bold text-sm text-white disabled:opacity-60 flex items-center justify-center gap-2"
+        className="w-full py-4 rounded-xl font-bold text-sm text-white disabled:opacity-60 flex items-center justify-center gap-2"
         style={{ background: 'linear-gradient(to right, #3CA5D4, #0E3254)' }}
       >
         {processing ? (
@@ -331,6 +334,13 @@ function PaymentStep({
   );
 }
 
+const DEFAULT_FORM_CFG: BookingFormConfig = {
+  passport: 'required',
+  id_card: 'optional',
+  photo: 'required',
+  custom_docs: [],
+};
+
 /* ─── Main booking form component ─── */
 export default function BookingForm({ services, stripeKey }: { services: VisaService[]; stripeKey: string }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -338,11 +348,17 @@ export default function BookingForm({ services, stripeKey }: { services: VisaSer
 
   const [step, setStep] = useState(1);
   const [form, setForm] = useState<FormData>(EMPTY_FORM);
+  const [customFiles, setCustomFiles] = useState<Record<string, File | null>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [referenceNumber, setReferenceNumber] = useState('');
 
   const set = (field: keyof FormData, value: FormData[keyof FormData]) =>
     setForm((f) => ({ ...f, [field]: value }));
+
+  const getServiceCfg = (): BookingFormConfig => {
+    const svc = services.find((s) => s.id === form.serviceId);
+    return svc?.booking_form_config ?? DEFAULT_FORM_CFG;
+  };
 
   /* ── Validation per step ── */
   const validateStep = (s: number): Record<string, string> => {
@@ -371,11 +387,18 @@ export default function BookingForm({ services, stripeKey }: { services: VisaSer
       if (form.numTravelers < 1 || form.numTravelers > 20) e.numTravelers = 'Must be between 1 and 20.';
     }
     if (s === 4) {
-      if (!form.passportFile) e.passportFile = 'Passport copy is required.';
-      if (!form.photoFile) e.photoFile = 'Profile photo is required.';
+      const cfg = getServiceCfg();
+      if (cfg.passport === 'required' && !form.passportFile) e.passportFile = 'Passport copy is required.';
+      if (cfg.id_card === 'required' && !form.idCardFile) e.idCardFile = 'National ID card is required.';
+      if (cfg.photo === 'required' && !form.photoFile) e.photoFile = 'Profile photo is required.';
       if (form.passportFile && form.passportFile.size > 5 * 1024 * 1024) e.passportFile = 'File must be under 5MB.';
       if (form.idCardFile && form.idCardFile.size > 5 * 1024 * 1024) e.idCardFile = 'File must be under 5MB.';
       if (form.photoFile && form.photoFile.size > 2 * 1024 * 1024) e.photoFile = 'Photo must be under 2MB.';
+      cfg.custom_docs.forEach((doc) => {
+        if (doc.required && !customFiles[doc.key]) e[`custom_${doc.key}`] = `${doc.label} is required.`;
+        const f = customFiles[doc.key];
+        if (f && f.size > 5 * 1024 * 1024) e[`custom_${doc.key}`] = `${doc.label} must be under 5MB.`;
+      });
     }
     return e;
   };
@@ -389,7 +412,7 @@ export default function BookingForm({ services, stripeKey }: { services: VisaSer
 
   if (referenceNumber) {
     return (
-      <div className="max-w-lg mx-auto px-4 md:px-6 py-20 text-center">
+      <div className="container mx-auto px-6 py-20 max-w-lg text-center">
         <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style={{ background: 'linear-gradient(135deg, #3CA5D4, #0E3254)' }}>
           <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2.5} className="w-10 h-10"><polyline points="20 6 9 17 4 12" /></svg>
         </div>
@@ -409,7 +432,7 @@ export default function BookingForm({ services, stripeKey }: { services: VisaSer
   return (
     <>
       {/* Hero */}
-      <div className="max-w-3xl mx-auto px-4 md:px-6 py-12">
+      <div className="container mx-auto px-6 py-12 max-w-3xl">
         <StepBar current={step} total={5} />
 
         {/* ── Step 1: Service Selection ── */}
@@ -558,50 +581,72 @@ export default function BookingForm({ services, stripeKey }: { services: VisaSer
         )}
 
         {/* ── Step 4: Documents ── */}
-        {step === 4 && (
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-xl font-bold mb-1" style={{ color: '#0A385A' }}>Upload Documents</h2>
-              <p className="text-sm" style={{ color: '#9ca3af' }}>Please upload clear, readable copies of your documents. Supported: JPG, PNG, PDF.</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="md:col-span-2">
-                <FileUploadField
-                  label="Passport Copy"
-                  required
-                  accept=".jpg,.jpeg,.png,.pdf"
-                  maxMB={5}
-                  value={form.passportFile}
-                  onChange={(f) => set('passportFile', f)}
-                  error={errors.passportFile}
-                />
+        {step === 4 && (() => {
+          const cfg = getServiceCfg();
+          return (
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-xl font-bold mb-1" style={{ color: '#0A385A' }}>Upload Documents</h2>
+                <p className="text-sm" style={{ color: '#9ca3af' }}>Please upload clear, readable copies of your documents. Supported: JPG, PNG, PDF.</p>
               </div>
-              <FileUploadField
-                label="National ID Card"
-                accept=".jpg,.jpeg,.png,.pdf"
-                maxMB={5}
-                value={form.idCardFile}
-                onChange={(f) => set('idCardFile', f)}
-                error={errors.idCardFile}
-              />
-              <FileUploadField
-                label="Profile Photo"
-                required
-                accept=".jpg,.jpeg,.png"
-                maxMB={2}
-                value={form.photoFile}
-                onChange={(f) => set('photoFile', f)}
-                error={errors.photoFile}
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {cfg.passport !== 'hidden' && (
+                  <div className="md:col-span-2">
+                    <FileUploadField
+                      label="Passport Copy"
+                      required={cfg.passport === 'required'}
+                      accept=".jpg,.jpeg,.png,.pdf"
+                      maxMB={5}
+                      value={form.passportFile}
+                      onChange={(f) => set('passportFile', f)}
+                      error={errors.passportFile}
+                    />
+                  </div>
+                )}
+                {cfg.id_card !== 'hidden' && (
+                  <FileUploadField
+                    label="National ID Card"
+                    required={cfg.id_card === 'required'}
+                    accept=".jpg,.jpeg,.png,.pdf"
+                    maxMB={5}
+                    value={form.idCardFile}
+                    onChange={(f) => set('idCardFile', f)}
+                    error={errors.idCardFile}
+                  />
+                )}
+                {cfg.photo !== 'hidden' && (
+                  <FileUploadField
+                    label="Profile Photo"
+                    required={cfg.photo === 'required'}
+                    accept=".jpg,.jpeg,.png"
+                    maxMB={2}
+                    value={form.photoFile}
+                    onChange={(f) => set('photoFile', f)}
+                    error={errors.photoFile}
+                  />
+                )}
+                {cfg.custom_docs.map((doc) => (
+                  <FileUploadField
+                    key={doc.key}
+                    label={doc.label}
+                    required={doc.required}
+                    accept=".jpg,.jpeg,.png,.pdf"
+                    maxMB={5}
+                    value={customFiles[doc.key] ?? null}
+                    onChange={(f) => setCustomFiles((prev) => ({ ...prev, [doc.key]: f }))}
+                    error={errors[`custom_${doc.key}`]}
+                  />
+                ))}
+              </div>
+              <div className="rounded-2xl p-4 flex gap-3" style={{ background: '#fffbeb', border: '1px solid #f59e0b' }}>
+                <span className="flex-shrink-0">💡</span>
+                <p className="text-xs leading-relaxed" style={{ color: '#92400e' }}>
+                  Ensure documents are clear and all corners are visible. Blurry or incomplete documents may delay your application.
+                </p>
+              </div>
             </div>
-            <div className="rounded-2xl p-4 flex gap-3" style={{ background: '#fffbeb', border: '1px solid #f59e0b' }}>
-              <span className="flex-shrink-0">💡</span>
-              <p className="text-xs leading-relaxed" style={{ color: '#92400e' }}>
-                Ensure documents are clear and all corners are visible. Blurry or incomplete documents may delay your application.
-              </p>
-            </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* ── Step 5: Payment ── */}
         {step === 5 && (
@@ -611,7 +656,7 @@ export default function BookingForm({ services, stripeKey }: { services: VisaSer
               <p className="text-sm" style={{ color: '#9ca3af' }}>Review your booking and complete payment to confirm your application.</p>
             </div>
             <Elements stripe={stripePromise}>
-              <PaymentStep form={form} stripeKey={stripeKey} onSuccess={setReferenceNumber} />
+              <PaymentStep form={form} customFiles={customFiles} stripeKey={stripeKey} onSuccess={setReferenceNumber} />
             </Elements>
           </div>
         )}
@@ -620,13 +665,13 @@ export default function BookingForm({ services, stripeKey }: { services: VisaSer
         {step < 5 && (
           <div className={`flex gap-4 mt-10 ${step === 1 ? 'justify-end' : 'justify-between'}`}>
             {step > 1 && (
-              <button onClick={back} className="px-6 py-3 rounded-full font-semibold text-sm border transition-all hover:bg-[#f8fbff]" style={{ color: '#0A385A', borderColor: '#e5e7eb' }}>
+              <button onClick={back} className="px-6 py-3 rounded-xl font-semibold text-sm border transition-all" style={{ color: '#0A385A', borderColor: '#e5e7eb' }}>
                 ← Back
               </button>
             )}
             <button
               onClick={next}
-              className="px-8 py-3 rounded-full font-bold text-sm text-white transition-opacity hover:opacity-90"
+              className="px-8 py-3 rounded-xl font-bold text-sm text-white"
               style={{ background: 'linear-gradient(to right, #3CA5D4, #0E3254)' }}
             >
               {step === 4 ? 'Review & Pay →' : 'Continue →'}
@@ -634,7 +679,7 @@ export default function BookingForm({ services, stripeKey }: { services: VisaSer
           </div>
         )}
         {step === 5 && (
-          <button onClick={back} className="mt-4 px-6 py-3 rounded-full font-semibold text-sm border hover:bg-[#f8fbff] transition-colors" style={{ color: '#0A385A', borderColor: '#e5e7eb' }}>
+          <button onClick={back} className="mt-4 px-6 py-3 rounded-xl font-semibold text-sm border" style={{ color: '#0A385A', borderColor: '#e5e7eb' }}>
             ← Back
           </button>
         )}

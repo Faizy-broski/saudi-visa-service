@@ -157,7 +157,7 @@ export default function TrackPage() {
 
       {/* Search box */}
       <section style={{ background: '#f8fbff' }} className="pb-4">
-        <div className="max-w-xl mx-auto px-4 md:px-6 -mt-8 relative z-10">
+        <div className="container mx-auto px-6 max-w-xl -mt-8 relative z-10">
           <form
             onSubmit={handleSearch}
             className="rounded-2xl p-6 shadow-xl"
@@ -178,7 +178,7 @@ export default function TrackPage() {
               <button
                 type="submit"
                 disabled={loading || !ref.trim()}
-                className="px-6 py-3 rounded-full font-bold text-sm text-white disabled:opacity-60 flex items-center gap-2"
+                className="px-6 py-3 rounded-xl font-bold text-sm text-white disabled:opacity-60 flex items-center gap-2"
                 style={{ background: 'linear-gradient(to right,#3CA5D4,#0E3254)', whiteSpace: 'nowrap' }}
               >
                 {loading ? (
@@ -206,7 +206,7 @@ export default function TrackPage() {
       {/* Result */}
       {booking && cfg && (
         <section style={{ background: '#f8fbff' }} className="py-10">
-          <div className="max-w-2xl mx-auto px-4 md:px-6 space-y-6">
+          <div className="container mx-auto px-6 max-w-2xl space-y-6">
 
             {/* Status banner */}
             <div
@@ -309,7 +309,7 @@ export default function TrackPage() {
       {/* Empty state hint when no search yet */}
       {!booking && !error && !loading && (
         <section style={{ background: '#f8fbff' }} className="py-16">
-          <div className="max-w-xl mx-auto px-4 md:px-6 text-center">
+          <div className="container mx-auto px-6 max-w-xl text-center">
             <div
               className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
               style={{ background: '#eef2f7' }}

@@ -254,7 +254,7 @@ export async function POST(request: NextRequest) {
         travel_date: travelDate || null,
         message: message || null,
         status: 'pending',
-        consultant_notes: `Stripe: ${paymentIntentId} | ${amountDisplay}`,
+        consultant_notes: null,
       })
       .select('reference_number')
       .single();

@@ -74,6 +74,13 @@ export async function POST(request: NextRequest) {
     const idCardPath = await uploadFile(getFile('idCardFile'), 'id-card');
     const photoPath = await uploadFile(getFile('photoFile'), 'photo');
 
+    // Upload any custom documents (custom_<key> fields)
+    for (const [key, val] of formData.entries()) {
+      if (key.startsWith('custom_') && val instanceof File && val.size > 0) {
+        await uploadFile(val, key.slice(7));
+      }
+    }
+
     // 3. Create booking record
     const { data: booking, error: dbErr } = await supabase
       .from('visa_applications')
@@ -100,7 +107,7 @@ export async function POST(request: NextRequest) {
         photo_url: photoPath,
         amount_usd: amountUsd,
         stripe_payment_intent_id: paymentIntentId,
-        consultant_notes: `Service: ${serviceName} | PI: ${paymentIntentId}`,
+        consultant_notes: null,
       })
       .select('reference_number')
       .single();

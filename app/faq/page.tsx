@@ -216,8 +216,8 @@ export default function FaqPage() {
       />
 
       {/* FAQ content */}
-      <section style={{ background: '#f8fbff' }} className="py-16 md:py-20">
-        <div className="max-w-3xl mx-auto px-4 md:px-6 space-y-8">
+      <section style={{ background: '#f8fbff' }} className="py-20">
+        <div className="container mx-auto px-6 max-w-3xl space-y-8">
           {FAQ_SECTIONS.map((section, si) => (
             <div
               key={section.category}

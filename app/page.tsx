@@ -86,12 +86,10 @@ export default async function Home() {
   try {
     const supabase = createAdminClient();
     const { data } = await supabase
-      .from("visa_services")
-      .select(
-        "id, name, slug, tagline, description, price_usd, duration, processing_time, features, requirements, accent_color, image_url",
-      )
-      .eq("active", true)
-      .order("display_order");
+      .from('visa_services')
+      .select('*')
+      .eq('active', true)
+      .order('display_order');
 
     if (data && data.length > 0) {
       services = data;

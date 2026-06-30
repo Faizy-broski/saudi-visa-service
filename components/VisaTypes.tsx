@@ -106,7 +106,7 @@ export default function VisaTypes({ services }: { services: VisaService[] }) {
           <FadeUp>
             <span className="text-xs font-light text-saudi-orange uppercase tracking-[0.2em]">Our Visa Services</span>
             <h2 className="text-3xl md:text-4xl font-semibold text-[#0A385A] mt-3 md:mt-4">
-              Three Doorways into <span className="italic font-bold text-[#da6d3f]">Saudi Arabia.</span>
+              Two Pathways into <span className="italic font-bold text-[#da6d3f]">Saudi Arabia.</span>
             </h2>
           </FadeUp>
         </div>

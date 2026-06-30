@@ -34,9 +34,10 @@ export default function AboutSection() {
               </span>
             </h2>
 
+            {/* Hajj removed from text: original mentioned "Umrah, Hajj, tourism, business, or family visits" */}
             <p className="my-5 text-sm leading-relaxed text-gray-600 md:my-6">
               From the moment you decide to visit Saudi Arabia, we&apos;re here
-              to help. Whether you&apos;re travelling for Umrah, Hajj, tourism,
+              to help. Whether you&apos;re travelling for Umrah, tourism,
               business, or family visits, our dedicated team guides you through
               every stage of the visa process, ensuring a smooth and hassle-free
               experience from application to approval.

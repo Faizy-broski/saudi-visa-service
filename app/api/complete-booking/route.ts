@@ -127,11 +127,11 @@ function customerEmailHtml(d: BookingPayload, ref: string): string {
     <td style="padding:28px 40px 36px;text-align:center;">
       <div style="font-size:18px;font-weight:800;color:#0A385A;margin-bottom:10px;letter-spacing:-0.3px;">Saudi Visa Service</div>
       <div style="font-size:12px;color:#9ca3af;line-height:2;">
-        info@saudivisaservice.com &nbsp;&#183;&nbsp; +44 20 1234 5678<br/>
+        info@saudivisaservice.co.uk &nbsp;&#183;&nbsp; +44 20 1234 5678<br/>
         Visa Operations Center &nbsp;&#183;&nbsp; Jeddah, Saudi Arabia
       </div>
       <div style="margin-top:16px;font-size:11px;color:#d1d5db;">&#169; 2026 Saudi Visa Service. All rights reserved.</div>
-      <div style="margin-top:8px;font-size:11px;color:#d1d5db;">This email was sent because you submitted an application at saudivisaservice.com</div>
+      <div style="margin-top:8px;font-size:11px;color:#d1d5db;">This email was sent because you submitted an application at saudivisaservice.co.uk</div>
     </td>
   </tr>
 
@@ -235,7 +235,7 @@ export async function POST(request: NextRequest) {
     const visaTypeMap: Record<string, string> = {
       'Umrah Visa': 'umrah',
       'Tourist Visa': 'tourist',
-      'Hajj Visa': 'hajj',
+      // 'Hajj Visa': 'hajj',
       'Business Visa': 'business',
       'Family Visa': 'family',
     };

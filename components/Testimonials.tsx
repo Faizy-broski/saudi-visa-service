@@ -20,27 +20,28 @@ const testimonials = [
     role: "Tourist Visa",
     offset: "md:mt-4",
   },
-  {
-    quote:
-      '"The most reassuring service I\'ve experienced. They treated my application with real respect."',
-    initial: "F",
-    name: "Fatima S.",
-    role: "Hajj Applicant",
-    offset: "md:mt-8",
-  },
+  // Hajj testimonial removed:
+  // {
+  //   quote:
+  //     '"The most reassuring service I\'ve experienced. They treated my application with real respect."',
+  //   initial: "F",
+  //   name: "Fatima S.",
+  //   role: "Hajj Applicant",
+  //   offset: "md:mt-8",
+  // },
 ];
 
 export default function Testimonials() {
   return (
     <section className="relative overflow-hidden bg-white py-16 md:py-24">
-      {/* Left background image — hidden on mobile */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-0 hidden md:block">
+      {/* Hajj background image removed */}
+      {/* <div className="pointer-events-none absolute inset-y-0 left-0 z-0 hidden md:block">
         <img
           src="/images/hajj-pilgrims.svg"
           alt=""
           className="h-full w-full object-cover object-right"
         />
-      </div>
+      </div> */}
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 md:px-6">
         <FadeUp className="mb-10 text-center md:mb-16">

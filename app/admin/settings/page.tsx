@@ -120,7 +120,7 @@ export default function SettingsPage() {
               <Input value={settings.support_phone} onChange={set('support_phone')} placeholder="+966 50 000 0000" />
             </Row>
             <Row label="Admin Notification Email">
-              <Input value={settings.admin_email} onChange={set('admin_email')} placeholder="admin@saudivisaservice.com" type="email" />
+              <Input value={settings.admin_email} onChange={set('admin_email')} placeholder="admin@saudivisaservice.co.uk" type="email" />
             </Row>
           </div>
         )}

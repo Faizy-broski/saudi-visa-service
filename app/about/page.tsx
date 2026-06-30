@@ -32,7 +32,8 @@ const VALUES = [
   },
   {
     title: 'Expertise',
-    desc: 'Our consultants have processed thousands of Saudi visas across Umrah, Hajj, and tourism categories. We know every requirement inside out.',
+    /* Hajj removed: original said "Umrah, Hajj, and tourism categories" */
+    desc: 'Our consultants have processed thousands of Saudi visas across Umrah and tourism categories. We know every requirement inside out.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-6 h-6">
         <circle cx="12" cy="8" r="6" />
@@ -79,24 +80,26 @@ const SERVICES_OVERVIEW = [
     ),
     href: '/services/tourist',
   },
-  {
-    name: 'Hajj Visa',
-    slug: 'hajj',
-    desc: 'Seasonal pilgrimage processing supported by consultants who understand every religious and governmental requirement.',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-7 h-7">
-        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" />
-        <path d="M19 3l1 1" />
-        <circle cx="19.5" cy="3.5" r="0.5" fill="currentColor" />
-      </svg>
-    ),
-    href: '/services/hajj',
-  },
+  // Hajj Visa removed:
+  // {
+  //   name: 'Hajj Visa',
+  //   slug: 'hajj',
+  //   desc: 'Seasonal pilgrimage processing supported by consultants who understand every religious and governmental requirement.',
+  //   icon: (
+  //     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-7 h-7">
+  //       <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" />
+  //       <path d="M19 3l1 1" />
+  //       <circle cx="19.5" cy="3.5" r="0.5" fill="currentColor" />
+  //     </svg>
+  //   ),
+  //   href: '/services/hajj',
+  // },
 ];
 
 const TIMELINE = [
   { year: '2019', event: 'Founded in Jeddah with a small team of 3 passionate visa consultants.' },
-  { year: '2021', event: 'Expanded services to cover Hajj and Tourist visas; processed 1,000+ applications.' },
+  /* Hajj removed: original said "Expanded services to cover Hajj and Tourist visas" */
+  { year: '2021', event: 'Expanded services to cover Tourist visas; processed 1,000+ applications.' },
   { year: '2023', event: 'Launched online booking platform serving clients across 50+ countries.' },
   { year: '2025', event: '10,000+ successful applications and growing with a 98% approval rate.' },
 ];

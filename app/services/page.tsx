@@ -39,7 +39,7 @@ function StarIcon() {
 const FALLBACK_IMAGES: Record<string, string> = {
   umrah: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?w=800&q=80',
   tourist: 'https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?w=800&q=80',
-  hajj: 'https://images.unsplash.com/photo-1592326871020-04f58c1a52f3?w=800&q=80',
+  // hajj: 'https://images.unsplash.com/photo-1592326871020-04f58c1a52f3?w=800&q=80',
 };
 
 const FALLBACK_SERVICES = [
@@ -61,15 +61,16 @@ const FALLBACK_SERVICES = [
     accent_color: '#3CA5D4',
     image_url: 'https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?w=800&q=80',
   },
-  {
-    id: 'hajj', name: 'Hajj Visa', slug: 'hajj', tagline: 'Sacred Pilgrimage',
-    description: 'Seasonal Hajj processing supported by experienced consultants who understand every requirement.',
-    price_usd: 249, duration: 'Seasonal', processing_time: '5-7 days',
-    features: ['Priority processing', 'Expert consultation', 'Full document support'],
-    requirements: ['Valid passport (6+ months)', 'Proof of Islam', 'Health certificate'],
-    accent_color: '#da6d3f',
-    image_url: 'https://images.unsplash.com/photo-1592326871020-04f58c1a52f3?w=800&q=80',
-  },
+  // Hajj Visa removed:
+  // {
+  //   id: 'hajj', name: 'Hajj Visa', slug: 'hajj', tagline: 'Sacred Pilgrimage',
+  //   description: 'Seasonal Hajj processing supported by experienced consultants who understand every requirement.',
+  //   price_usd: 249, duration: 'Seasonal', processing_time: '5-7 days',
+  //   features: ['Priority processing', 'Expert consultation', 'Full document support'],
+  //   requirements: ['Valid passport (6+ months)', 'Proof of Islam', 'Health certificate'],
+  //   accent_color: '#da6d3f',
+  //   image_url: 'https://images.unsplash.com/photo-1592326871020-04f58c1a52f3?w=800&q=80',
+  // },
 ];
 
 export default async function ServicesPage() {
@@ -157,7 +158,7 @@ export default async function ServicesPage() {
                     )}
                     <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between">
                       <h3 className="text-2xl font-bold text-white">{svc.name}</h3>
-                      <span className="text-3xl font-bold text-white">${svc.price_usd}</span>
+                      <span className="text-3xl font-bold text-white">£{svc.price_usd}</span>
                     </div>
                   </div>
 

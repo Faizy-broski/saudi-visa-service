@@ -17,12 +17,14 @@ const FAQ_SECTIONS = [
     ),
     items: [
       {
+        /* Hajj removed from description: original included "Umrah, Hajj, and Tourist visas" */
         q: 'What is Saudi Visa Service?',
-        a: 'Saudi Visa Service is a professional visa assistance platform that helps individuals and groups apply for Saudi Arabian visas — including Umrah, Hajj, and Tourist visas. We manage the entire process on your behalf, from document preparation to submission and tracking.',
+        a: 'Saudi Visa Service is a professional visa assistance platform that helps individuals and groups apply for Saudi Arabian visas — including Umrah and Tourist visas. We manage the entire process on your behalf, from document preparation to submission and tracking.',
       },
       {
+        /* Hajj removed from visa types: original listed "Hajj Visa (seasonal)" */
         q: 'Which visas do you handle?',
-        a: 'We currently handle three visa types: Umrah Visa (year-round for pilgrims), Tourist Visa (for leisure, exploration, and short stays), and Hajj Visa (seasonal, during the Hajj pilgrimage period).',
+        a: 'We currently handle two visa types: Umrah Visa (year-round for pilgrims) and Tourist Visa (for leisure, exploration, and short stays).',
       },
       {
         q: 'Are you an official Saudi government agency?',
@@ -51,10 +53,11 @@ const FAQ_SECTIONS = [
         q: 'What documents are required for a Tourist Visa?',
         a: 'Tourist Visa requirements include: a valid passport, passport photograph, and in some cases proof of travel itinerary or hotel bookings. Saudi Arabia has relaxed many tourist visa requirements in recent years, making the process straightforward.',
       },
-      {
-        q: 'Is the Hajj Visa available year-round?',
-        a: 'No. The Hajj Visa is only available during the Hajj season (the last months of the Islamic calendar). Applications typically open 3–4 months before Hajj. Outside of this period, pilgrims may apply for an Umrah Visa instead.',
-      },
+      // Hajj Visa FAQ item removed:
+      // {
+      //   q: 'Is the Hajj Visa available year-round?',
+      //   a: 'No. The Hajj Visa is only available during the Hajj season (the last months of the Islamic calendar). Applications typically open 3–4 months before Hajj. Outside of this period, pilgrims may apply for an Umrah Visa instead.',
+      // },
       {
         q: 'Can I extend my Saudi visa?',
         a: 'Visa extensions are possible but must be arranged through the appropriate Saudi government channels before your current visa expires. We can advise on the extension process as part of our post-approval support.',
@@ -74,8 +77,9 @@ const FAQ_SECTIONS = [
         a: 'Click "Apply Now" in the navigation bar, select your visa type, fill in your personal details, upload the required documents, and complete payment. You\'ll receive a confirmation email with your reference number immediately.',
       },
       {
+        /* Hajj removed from processing times: original mentioned "Hajj visas can take 5–10 business days" */
         q: 'How long does the process take?',
-        a: 'Processing times vary by visa type. Tourist and Umrah visas typically take 2–5 business days. Hajj visas can take 5–10 business days due to higher volume. We will keep you informed at every stage.',
+        a: 'Processing times vary by visa type. Tourist and Umrah visas typically take 2–5 business days. We will keep you informed at every stage.',
       },
       {
         q: 'Can I apply for multiple travellers at once?',
@@ -153,12 +157,13 @@ const FAQ_SECTIONS = [
         a: 'Yes. We send email notifications every time your application status changes — when it moves to review, when it is approved, or if any action is required from your side.',
       },
       {
+        /* Hajj removed: original mentioned "For Hajj visas, the process may involve a physical document" */
         q: 'How will I receive my approved visa?',
-        a: 'For e-visas (Tourist and Umrah), the approved visa will be sent directly to your email as a PDF. For Hajj visas, the process may involve a physical document depending on your country of application.',
+        a: 'For e-visas (Tourist and Umrah), the approved visa will be sent directly to your email as a PDF.',
       },
       {
         q: 'What should I do if I have a problem after approval?',
-        a: 'Contact our support team via the Contact page or email us at info@saudivisaservice.com. Our team is available to help with any post-approval queries, airport issues, or documentation concerns.',
+        a: 'Contact our support team via the Contact page or email us at info@saudivisaservice.co.uk. Our team is available to help with any post-approval queries, airport issues, or documentation concerns.',
       },
     ],
   },

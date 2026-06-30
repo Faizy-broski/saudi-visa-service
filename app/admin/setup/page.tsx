@@ -78,7 +78,7 @@ export default function AdminSetup() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {[
             { label: 'Your Name', type: 'text', value: name, set: setName, placeholder: 'Admin User' },
-            { label: 'Email Address', type: 'email', value: email, set: setEmail, placeholder: 'admin@saudivisaservice.com' },
+            { label: 'Email Address', type: 'email', value: email, set: setEmail, placeholder: 'admin@saudivisaservice.co.uk' },
             { label: 'Password', type: 'password', value: password, set: setPassword, placeholder: '••••••••' },
             { label: 'Confirm Password', type: 'password', value: confirm, set: setConfirm, placeholder: '••••••••' },
           ].map(({ label, type, value, set, placeholder }) => (

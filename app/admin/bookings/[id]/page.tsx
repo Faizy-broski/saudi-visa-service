@@ -15,7 +15,7 @@ const STATUS_OPTIONS = [
 ];
 
 const VISA_LABEL: Record<string, string> = {
-  umrah: 'Umrah Visa', tourist: 'Tourist Visa', hajj: 'Hajj Visa', business: 'Business Visa', family: 'Family Visa',
+  umrah: 'Umrah Visa', tourist: 'Tourist Visa', /* hajj: 'Hajj Visa', */ business: 'Business Visa', family: 'Family Visa',
 };
 
 function Card({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) {
@@ -221,7 +221,7 @@ export default function BookingDetailPage() {
           {/* Payment */}
           <Card title="Payment Information" icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-3.5 h-3.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>}>
             <InfoGrid items={[
-              { label: 'Amount Paid',    value: booking.amount_usd ? `$${Number(booking.amount_usd).toFixed(2)}` : null },
+              { label: 'Amount Paid',    value: booking.amount_usd ? `£${Number(booking.amount_usd).toFixed(2)}` : null },
               { label: 'Submitted On',   value: new Date(booking.created_at).toLocaleString('en-GB') },
               { label: 'Last Updated',   value: booking.updated_at ? new Date(booking.updated_at).toLocaleString('en-GB') : null },
             ]} />

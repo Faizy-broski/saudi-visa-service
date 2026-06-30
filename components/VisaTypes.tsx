@@ -23,7 +23,7 @@ interface VisaService {
 const FALLBACK_IMAGES: Record<string, string> = {
   umrah: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?w=800&q=80',
   tourist: 'https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?w=800&q=80',
-  hajj: 'https://images.unsplash.com/photo-1592326871020-04f58c1a52f3?w=800&q=80',
+  // hajj: 'https://images.unsplash.com/photo-1592326871020-04f58c1a52f3?w=800&q=80',
 };
 
 function ClockIcon() {
@@ -81,7 +81,7 @@ function VisaCard({ svc, height }: { svc: VisaService; height: number }) {
           >
             Apply Now →
           </a>
-          <span className="text-2xl font-bold text-white">${svc.price_usd}</span>
+          <span className="text-2xl font-bold text-white">£{svc.price_usd}</span>
         </div>
       </div>
     </m.div>

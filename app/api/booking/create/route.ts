@@ -162,7 +162,7 @@ export async function POST(request: NextRequest) {
       <tr><td style="padding:10px 20px;border-bottom:1px solid #eef2f7;font-size:13px;color:#9ca3af;">Passport No.</td><td style="padding:10px 20px;border-bottom:1px solid #eef2f7;font-size:13px;font-weight:600;color:#0A385A;">${passportNumber}</td></tr>
       <tr><td style="padding:10px 20px;border-bottom:1px solid #eef2f7;font-size:13px;color:#9ca3af;">Nationality</td><td style="padding:10px 20px;border-bottom:1px solid #eef2f7;font-size:13px;font-weight:600;color:#0A385A;">${nationality}</td></tr>
       <tr><td style="padding:10px 20px;border-bottom:1px solid #eef2f7;font-size:13px;color:#9ca3af;">Travel Date</td><td style="padding:10px 20px;border-bottom:1px solid #eef2f7;font-size:13px;font-weight:600;color:#0A385A;">${travelDateLabel}</td></tr>
-      <tr><td style="padding:10px 20px;font-size:13px;color:#9ca3af;">Amount Paid</td><td style="padding:10px 20px;font-size:13px;font-weight:700;color:#da6d3f;">$${amountUsd.toFixed(2)}</td></tr>
+      <tr><td style="padding:10px 20px;font-size:13px;color:#9ca3af;">Amount Paid</td><td style="padding:10px 20px;font-size:13px;font-weight:700;color:#da6d3f;">£${amountUsd.toFixed(2)}</td></tr>
     </table>
   </td></tr>
   <tr><td style="padding:24px 40px 0;text-align:center;">
@@ -188,7 +188,7 @@ export async function POST(request: NextRequest) {
   </tr>
   <tr><td colspan="2" style="background:linear-gradient(135deg,rgba(218,109,63,0.06),rgba(60,165,212,0.04));padding:20px 40px;border-bottom:3px solid #da6d3f;">
     <div style="font-size:13px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;">Payment Received</div>
-    <div style="font-size:32px;font-weight:800;color:#da6d3f;">$${amountUsd.toFixed(2)}</div>
+    <div style="font-size:32px;font-weight:800;color:#da6d3f;">£${amountUsd.toFixed(2)}</div>
     <div style="font-size:11px;color:#9ca3af;font-family:monospace;margin-top:4px;">PI: ${paymentIntentId}</div>
   </td></tr>
   <tr><td colspan="2" style="padding:24px 40px;">
@@ -214,7 +214,7 @@ export async function POST(request: NextRequest) {
 
       await Promise.all([
         transporter.sendMail({ from: fromLine, to: email, subject: `✓ Booking Confirmed – ${serviceName} | Saudi Visa Service`, html: customerHtml }),
-        transporter.sendMail({ from: fromLine, to: adminEmail || smtpUser, subject: `🆕 New Booking: ${firstName} ${lastName} – ${serviceName} ($${amountUsd})`, html: adminHtml }),
+        transporter.sendMail({ from: fromLine, to: adminEmail || smtpUser, subject: `🆕 New Booking: ${firstName} ${lastName} – ${serviceName} (£${amountUsd})`, html: adminHtml }),
       ]);
     } catch (mailErr) {
       console.error('[mail]', mailErr);

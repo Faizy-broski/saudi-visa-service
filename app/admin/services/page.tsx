@@ -264,7 +264,7 @@ export default function ServicesPage() {
           { label: 'Total Services', value: services.length, sub: 'all visa types', grad: 'linear-gradient(135deg,#3CA5D4,#0E3254)', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg> },
           { label: 'Active', value: activeCount, sub: 'shown on website', grad: 'linear-gradient(135deg,#10b981,#059669)', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><polyline points="20 6 9 17 4 12"/></svg> },
           { label: 'Inactive', value: inactiveCount, sub: 'hidden from site', grad: 'linear-gradient(135deg,#9ca3af,#6b7280)', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg> },
-          { label: 'Avg. Price', value: `$${avgPrice}`, sub: 'per service', grad: 'linear-gradient(135deg,#da6d3f,#b45309)', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> },
+          { label: 'Avg. Price', value: `£${avgPrice}`, sub: 'per service', grad: 'linear-gradient(135deg,#da6d3f,#b45309)', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> },
         ].map(({ label, value, sub, grad, icon }) => (
           <div key={label} className="rounded-2xl p-5 bg-white flex items-start gap-4" style={{ border: '1px solid #eef2f7', boxShadow: '0 2px 12px rgba(10,56,90,0.05)' }}>
             <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 text-white" style={{ background: grad }}>{icon}</div>
@@ -338,7 +338,7 @@ export default function ServicesPage() {
                   )}
                 </div>
                 <div className="text-xs mt-0.5" style={{ color: '#6b7280' }}>
-                  ${svc.price_usd} · {svc.duration || '—'} · {svc.processing_time || '—'}
+                  £{svc.price_usd} · {svc.duration || '—'} · {svc.processing_time || '—'}
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -418,7 +418,7 @@ export default function ServicesPage() {
                     {[
                       { key: 'name', label: 'Service Name', type: 'text', placeholder: 'e.g. Umrah Visa' },
                       { key: 'tagline', label: 'Tagline', type: 'text', placeholder: 'e.g. Most Popular' },
-                      { key: 'price_usd', label: 'Price (USD)', type: 'number', placeholder: '199' },
+                      { key: 'price_usd', label: 'Price (GBP)', type: 'number', placeholder: '199' },
                       { key: 'duration', label: 'Duration', type: 'text', placeholder: 'e.g. 30 days' },
                       { key: 'processing_time', label: 'Processing Time', type: 'text', placeholder: 'e.g. 3-5 days' },
                       { key: 'accent_color', label: 'Accent Color', type: 'color', placeholder: '' },

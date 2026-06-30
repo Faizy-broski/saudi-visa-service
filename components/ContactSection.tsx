@@ -4,13 +4,13 @@ import { useState, useTransition } from 'react';
 import { submitContact } from '@/lib/actions/submitContact';
 
 const VISA_INTERESTS = [
-  'Umrah Visa', 'Tourist Visa', 'Hajj Visa', 'General Enquiry', 'Other',
+  'Umrah Visa', 'Tourist Visa', /* 'Hajj Visa', */ 'General Enquiry', 'Other',
 ];
 
 const INFO_ITEMS = [
   {
     title: 'Email',
-    value: 'info@saudivisaservice.com',
+    value: 'info@saudivisaservice.co.uk',
     iconBg: '#e0e7ff',
     iconColor: '#4f46e5',
     icon: (

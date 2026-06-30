@@ -37,13 +37,14 @@ export default function HeroSection() {
               APPLICATIONS
             </m.h1>
 
+            {/* Hajj removed: original text included "Umrah, Tourist, and Hajj visa" */}
             <m.p
               initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...t, delay: 0.22 }}
               className="mb-8 max-w-[440px] text-sm md:text-base leading-[1.8] text-white/90"
             >
-              Professional support for Umrah, Tourist, and Hajj visa
+              Professional support for Umrah and Tourist visa
               applications with document guidance, application assistance, and
               status tracking.
             </m.p>

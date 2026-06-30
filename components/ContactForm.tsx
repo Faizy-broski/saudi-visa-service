@@ -9,7 +9,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 const VISA_INTERESTS = [
   "Umrah Visa",
   "Tourist Visa",
-  "Hajj Visa",
+  // "Hajj Visa",
   "General Enquiry",
   "Other",
 ];
@@ -149,7 +149,7 @@ export default function ContactForm() {
 
                 <div className="flex gap-4">
                   <Mail className="w-4 h-4" />
-                  <p>visa@saudiavisa.com</p>
+                  <p>info@saudivisaservice.co.uk</p>
                 </div>
               </div>
             </div>

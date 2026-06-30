@@ -8,7 +8,7 @@ const STATUS_COLOR: Record<string, string> = {
   pending: '#f59e0b', reviewing: '#3CA5D4', approved: '#10b981', rejected: '#ef4444', on_hold: '#8b5cf6',
 };
 const VISA_LABEL: Record<string, string> = {
-  umrah: 'Umrah', tourist: 'Tourist', hajj: 'Hajj', business: 'Business', family: 'Family',
+  umrah: 'Umrah', tourist: 'Tourist', /* hajj: 'Hajj', */ business: 'Business', family: 'Family',
 };
 
 function StatCard({ label, value, sub, icon, grad }: { label: string; value: string | number; sub: string; icon: React.ReactNode; grad: string }) {
@@ -111,7 +111,7 @@ export default async function AdminDashboard() {
           icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>}
         />
         <StatCard
-          label="Total Revenue" value={`$${revenue.toLocaleString()}`} sub="service fees"
+          label="Total Revenue" value={`£${revenue.toLocaleString()}`} sub="service fees"
           grad="linear-gradient(135deg,#da6d3f,#b45309)"
           icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>}
         />
@@ -275,7 +275,7 @@ export default async function AdminDashboard() {
                     <div className="text-xs" style={{ color: '#9ca3af' }}>{a.email}</div>
                   </td>
                   <td className="px-5 py-3.5 text-xs font-medium" style={{ color: '#374151' }}>{VISA_LABEL[a.visa_type] ?? a.visa_type}</td>
-                  <td className="px-5 py-3.5 text-xs font-bold" style={{ color: '#da6d3f' }}>{a.amount_usd ? `$${Number(a.amount_usd).toFixed(2)}` : '—'}</td>
+                  <td className="px-5 py-3.5 text-xs font-bold" style={{ color: '#da6d3f' }}>{a.amount_usd ? `£${Number(a.amount_usd).toFixed(2)}` : '—'}</td>
                   <td className="px-5 py-3.5 text-xs whitespace-nowrap" style={{ color: '#6b7280' }}>{new Date(a.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}</td>
                   <td className="px-5 py-3.5">
                     <span className="text-xs font-bold px-2.5 py-1 rounded-full capitalize whitespace-nowrap"

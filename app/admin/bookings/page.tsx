@@ -14,7 +14,7 @@ const STATUS_OPTIONS = [
 ];
 
 const VISA_LABEL: Record<string, string> = {
-  umrah: 'Umrah', tourist: 'Tourist', hajj: 'Hajj', business: 'Business', family: 'Family',
+  umrah: 'Umrah', tourist: 'Tourist', /* hajj: 'Hajj', */ business: 'Business', family: 'Family',
 };
 
 const ITEMS_PER_PAGE = 10;
@@ -145,7 +145,7 @@ export default function BookingsPage() {
           { label: 'Total Bookings', value: bookings.length, sub: 'all time', grad: 'linear-gradient(135deg,#3CA5D4,#0E3254)', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> },
           { label: 'Pending Review', value: pendingCount, sub: 'awaiting action', grad: 'linear-gradient(135deg,#f59e0b,#d97706)', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
           { label: 'Approved', value: approvedCount, sub: 'visas issued', grad: 'linear-gradient(135deg,#10b981,#059669)', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> },
-          { label: 'Total Revenue', value: `$${totalRevenue.toLocaleString()}`, sub: 'service fees', grad: 'linear-gradient(135deg,#da6d3f,#b45309)', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> },
+          { label: 'Total Revenue', value: `£${totalRevenue.toLocaleString()}`, sub: 'service fees', grad: 'linear-gradient(135deg,#da6d3f,#b45309)', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> },
         ].map(({ label, value, sub, grad, icon }) => (
           <div key={label} className="rounded-2xl p-5 bg-white flex items-start gap-4" style={{ border: '1px solid #eef2f7', boxShadow: '0 2px 12px rgba(10,56,90,0.05)' }}>
             <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 text-white" style={{ background: grad }}>{icon}</div>
@@ -255,7 +255,7 @@ export default function BookingsPage() {
                     </td>
                     <td className="px-5 py-4 text-xs" style={{ color: '#6b7280' }}>{VISA_LABEL[b.visa_type] ?? b.visa_type}</td>
                     <td className="px-5 py-4 text-xs font-semibold" style={{ color: '#da6d3f' }}>
-                      {b.amount_usd ? `$${Number(b.amount_usd).toFixed(2)}` : '—'}
+                      {b.amount_usd ? `£${Number(b.amount_usd).toFixed(2)}` : '—'}
                     </td>
                     <td className="px-5 py-4 text-xs" style={{ color: '#6b7280' }}>
                       {new Date(b.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}

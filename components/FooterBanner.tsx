@@ -125,7 +125,7 @@ export default function FooterBanner() {
                     Jeddah · Saudi Arabia
                   </li>
                   <li>+966 12 000 0000</li>
-                  <li>info@saudivisaservice.com</li>
+                  <li>info@saudivisaservice.co.uk</li>
                   <li>+44 20 1234 5678</li>
                 </ul>
               </div>

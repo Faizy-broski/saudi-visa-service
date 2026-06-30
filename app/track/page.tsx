@@ -279,7 +279,7 @@ export default function TrackPage() {
                 <Detail label="Travel Date" value={fmtTravel(booking.travel_date)} />
                 <Detail label="Travelers" value={booking.num_travelers ? String(booking.num_travelers) : '—'} />
                 <Detail label="Departure City" value={booking.departure_city || '—'} />
-                <Detail label="Amount Paid" value={booking.amount_usd ? `$${booking.amount_usd} USD` : '—'} />
+                <Detail label="Amount Paid" value={booking.amount_usd ? `£${booking.amount_usd} GBP` : '—'} />
                 <Detail label="Submitted On" value={fmt(booking.created_at)} />
                 <Detail label="Reference" value={booking.reference_number} />
               </div>
@@ -298,8 +298,8 @@ export default function TrackPage() {
             {/* Help text */}
             <p className="text-xs text-center" style={{ color: '#9ca3af' }}>
               Questions about your application? Contact us at{' '}
-              <a href="mailto:info@saudivisaservice.com" style={{ color: '#3CA5D4' }}>
-                info@saudivisaservice.com
+              <a href="mailto:info@saudivisaservice.co.uk" style={{ color: '#3CA5D4' }}>
+                info@saudivisaservice.co.uk
               </a>
             </p>
           </div>

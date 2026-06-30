@@ -6,7 +6,7 @@ import Stripe from 'stripe';
 const FALLBACK_SERVICES: Record<string, { name: string; price_usd: number }> = {
   umrah:   { name: 'Umrah Visa',   price_usd: 199 },
   tourist: { name: 'Tourist Visa', price_usd: 149 },
-  hajj:    { name: 'Hajj Visa',    price_usd: 249 },
+  // hajj:    { name: 'Hajj Visa',    price_usd: 249 },
 };
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
     const amountCents = Math.round(service.price_usd * 100);
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amountCents,
-      currency: 'usd',
+      currency: 'gbp',
       metadata: {
         serviceId,
         serviceName: service.name,
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
       clientSecret: paymentIntent.client_secret,
       paymentIntentId: paymentIntent.id,
       amount: amountCents,
-      display: `$${service.price_usd.toFixed(2)}`,
+      display: `£${service.price_usd.toFixed(2)}`,
       label: service.name,
       publishableKey,
       stripeMode: mode,

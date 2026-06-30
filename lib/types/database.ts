@@ -1,4 +1,4 @@
-export type VisaType = 'umrah' | 'tourist' | 'hajj' | 'business' | 'family'
+export type VisaType = 'umrah' | 'tourist' | /* 'hajj' | */ 'business' | 'family'
 export type ApplicationStatus = 'pending' | 'reviewing' | 'approved' | 'rejected' | 'on_hold'
 
 export interface VisaApplication {

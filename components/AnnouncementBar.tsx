@@ -10,7 +10,7 @@ export default function AnnouncementBar() {
         <div className="flex gap-4 overflow-hidden">
           <span className="flex gap-2 items-center shrink-0">
             <Mail className="w-3 h-3 shrink-0" />
-            info@saudivisaservice.com
+            info@saudivisaservice.co.uk
           </span>
           <span className="hidden sm:flex gap-2 items-center shrink-0">
             <MapPin className="w-3 h-3 shrink-0" />

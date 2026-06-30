@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 const FALLBACK_IMAGES: Record<string, string> = {
   umrah:   'https://images.unsplash.com/photo-1564769625905-50e93615e769?w=1200&q=80',
   tourist: 'https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?w=1200&q=80',
-  hajj:    'https://images.unsplash.com/photo-1592326871020-04f58c1a52f3?w=1200&q=80',
+  // hajj:    'https://images.unsplash.com/photo-1592326871020-04f58c1a52f3?w=1200&q=80',
 };
 
 const FALLBACK_SERVICES: Record<string, any> = {
@@ -32,15 +32,16 @@ const FALLBACK_SERVICES: Record<string, any> = {
     features: ['Fast 2–3 day processing', 'Multi-entry options available', 'Document preparation & review', 'Real-time application tracking', 'Email notifications at every step'],
     requirements: ['Valid passport (min. 6 months validity)', 'Passport-sized photograph', 'Completed application form', 'Travel itinerary (optional)', 'Hotel booking confirmation (optional)'],
   },
-  hajj: {
-    id: 'hajj', name: 'Hajj Visa', slug: 'hajj', tagline: 'Sacred Pilgrimage',
-    description: 'The Hajj Visa is issued exclusively during the Hajj season and is one of the most spiritually significant travel documents in the world. Our experienced consultants understand every nuance of the Hajj application process and will ensure your pilgrimage proceeds without administrative hurdles.',
-    price_usd: 249, duration: 'Seasonal', processing_time: '5–7 days',
-    accent_color: '#da6d3f',
-    image_url: 'https://images.unsplash.com/photo-1592326871020-04f58c1a52f3?w=1200&q=80',
-    features: ['Priority seasonal processing', 'Expert Hajj consultation', 'Full document preparation', 'Group application support', 'Email notifications at every step'],
-    requirements: ['Valid passport (min. 6 months validity)', 'Proof of Muslim faith (if required)', 'Passport-sized photograph', 'Health certificate / vaccination records', 'Completed Hajj application form'],
-  },
+  // Hajj Visa removed:
+  // hajj: {
+  //   id: 'hajj', name: 'Hajj Visa', slug: 'hajj', tagline: 'Sacred Pilgrimage',
+  //   description: 'The Hajj Visa is issued exclusively during the Hajj season and is one of the most spiritually significant travel documents in the world. Our experienced consultants understand every nuance of the Hajj application process and will ensure your pilgrimage proceeds without administrative hurdles.',
+  //   price_usd: 249, duration: 'Seasonal', processing_time: '5–7 days',
+  //   accent_color: '#da6d3f',
+  //   image_url: 'https://images.unsplash.com/photo-1592326871020-04f58c1a52f3?w=1200&q=80',
+  //   features: ['Priority seasonal processing', 'Expert Hajj consultation', 'Full document preparation', 'Group application support', 'Email notifications at every step'],
+  //   requirements: ['Valid passport (min. 6 months validity)', 'Proof of Muslim faith (if required)', 'Passport-sized photograph', 'Health certificate / vaccination records', 'Completed Hajj application form'],
+  // },
 };
 
 const PROCESS_STEPS = [
@@ -140,7 +141,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           {/* Quick stats */}
           <div className="flex flex-wrap gap-4">
             {[
-              { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>, label: 'From', value: `$${service.price_usd} USD` },
+              { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>, label: 'From', value: `£${service.price_usd} GBP` },
               { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, label: 'Validity', value: service.duration },
               { icon: <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>, label: 'Processing', value: service.processing_time },
             ].map(({ icon, label, value }) => (
@@ -237,8 +238,8 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 {/* Card header */}
                 <div className="p-6 text-white" style={{ background: `linear-gradient(135deg, ${accent} 0%, #0E3254 100%)` }}>
                   <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,255,255,0.6)' }}>Service Fee</div>
-                  <div className="text-4xl font-bold mb-1">${service.price_usd}</div>
-                  <div className="text-xs" style={{ color: 'rgba(255,255,255,0.65)' }}>per person · USD</div>
+                  <div className="text-4xl font-bold mb-1">£{service.price_usd}</div>
+                  <div className="text-xs" style={{ color: 'rgba(255,255,255,0.65)' }}>per person · GBP</div>
                 </div>
 
                 {/* Highlights */}
@@ -298,7 +299,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                     <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,56,90,0.85) 0%, transparent 60%)' }} />
                     <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
                       <span className="font-bold text-sm text-white">{s.name}</span>
-                      <span className="text-sm font-bold text-white">${s.price_usd}</span>
+                      <span className="text-sm font-bold text-white">£{s.price_usd}</span>
                     </div>
                   </div>
                   <div className="p-4">

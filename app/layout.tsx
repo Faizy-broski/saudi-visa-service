@@ -5,7 +5,8 @@ import MotionProvider from "@/components/MotionProvider";
 export const metadata: Metadata = {
   title: "Saudi Visa Service - Travel Made Easy",
   description:
-    "Professional support for Umrah, Tourist, and Hajj visa applications with document guidance, application assistance, and status tracking.",
+    /* Hajj removed: original was "Umrah, Tourist, and Hajj visa applications" */
+    "Professional support for Umrah and Tourist visa applications with document guidance, application assistance, and status tracking.",
 };
 
 export default function RootLayout({

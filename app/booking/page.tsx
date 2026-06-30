@@ -60,20 +60,21 @@ const FALLBACK_SERVICES: VisaService[] = [
     accent_color: '#3CA5D4',
     image_url: 'https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?w=800&q=80',
   },
-  {
-    id: 'hajj',
-    name: 'Hajj Visa',
-    slug: 'hajj',
-    tagline: 'Sacred Pilgrimage',
-    description: 'Seasonal Hajj processing supported by experienced consultants who understand every requirement.',
-    price_usd: 249,
-    duration: 'Seasonal',
-    processing_time: '5-7 days',
-    features: ['Priority processing', 'Expert consultation', 'Full document support'],
-    requirements: ['Valid passport (6+ months)', 'Proof of Islam', 'Health certificate', 'Meningitis vaccination'],
-    accent_color: '#da6d3f',
-    image_url: 'https://images.unsplash.com/photo-1592326871020-04f58c1a52f3?w=800&q=80',
-  },
+  // Hajj Visa removed:
+  // {
+  //   id: 'hajj',
+  //   name: 'Hajj Visa',
+  //   slug: 'hajj',
+  //   tagline: 'Sacred Pilgrimage',
+  //   description: 'Seasonal Hajj processing supported by experienced consultants who understand every requirement.',
+  //   price_usd: 249,
+  //   duration: 'Seasonal',
+  //   processing_time: '5-7 days',
+  //   features: ['Priority processing', 'Expert consultation', 'Full document support'],
+  //   requirements: ['Valid passport (6+ months)', 'Proof of Islam', 'Health certificate', 'Meningitis vaccination'],
+  //   accent_color: '#da6d3f',
+  //   image_url: 'https://images.unsplash.com/photo-1592326871020-04f58c1a52f3?w=800&q=80',
+  // },
 ];
 
 export default async function BookingPage() {

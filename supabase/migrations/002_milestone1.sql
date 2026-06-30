@@ -100,7 +100,8 @@ VALUES
     'Discover ancient ruins, futuristic skylines, and pristine coastlines. Saudi Arabia is open for you and we make getting there effortless.',
     149.00, 'Up to 90 days', '2–3 business days',
     ARRAY['Fast processing', 'Multiple-entry option', 'eVisa support', 'Document review', 'Status tracking'],
-    ARRAY['Valid passport (min. 6 months validity)', 'Return flight tickets', 'Travel insurance', 'Hotel/accommodation booking'],
+    -- Travel insurance removed from Tourist Visa requirements
+    ARRAY['Valid passport (min. 6 months validity)', 'Return flight tickets', 'Hotel/accommodation booking'],
     2
   ),
   (

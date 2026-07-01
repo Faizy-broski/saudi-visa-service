@@ -210,7 +210,7 @@ export default async function ServicesPage() {
 
                     <div className="mt-auto pt-4 flex flex-col gap-2">
                       <Link
-                        href="/booking"
+                        href={`/booking?service=${svc.slug}`}
                         className="block text-center py-3.5 rounded-xl font-bold text-sm text-white transition-opacity hover:opacity-90"
                         style={{ background: 'linear-gradient(to right, #3CA5D4, #0E3254)' }}
                       >

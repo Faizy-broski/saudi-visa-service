@@ -1,6 +1,6 @@
 'use client';
-
-import { useState, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import type { VisaService, BookingFormConfig } from './page';
@@ -197,6 +197,12 @@ function BookingFormInner({
 }: {
   services: VisaService[]; onSuccess: (ref: string, email: string) => void;
 }) {
+  const searchParams = useSearchParams();
+const selectedServiceSlug = searchParams.get('service');
+
+
+
+
   const stripe = useStripe();
   const elements = useElements();
 
@@ -208,6 +214,23 @@ function BookingFormInner({
   const [cardError, setCardError] = useState('');
   const [processing, setProcessing] = useState(false);
   const [submitError, setSubmitError] = useState('');
+
+  useEffect(() => {
+  if (!selectedServiceSlug || services.length === 0) return;
+
+  const svc = services.find(
+    (s) => s.slug === selectedServiceSlug || s.id === selectedServiceSlug
+  );
+
+  if (!svc) return;
+
+  setForm((f) => ({
+    ...f,
+    serviceId: svc.id,
+    serviceName: svc.name,
+    servicePrice: svc.price_usd,
+  }));
+}, [selectedServiceSlug, services]);
 
   const set = (field: keyof FormData, value: FormData[keyof FormData]) =>
     setForm((f) => ({ ...f, [field]: value }));

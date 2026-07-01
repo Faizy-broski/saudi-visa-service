@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import Link from "next/link";
 import { m, useReducedMotion } from 'framer-motion';
 import { FadeUp, ease } from '@/lib/motion';
 import { StaggerChildren, StaggerItem } from '@/lib/motion';
@@ -75,12 +76,12 @@ function VisaCard({ svc, height }: { svc: VisaService; height: number }) {
         )}
         <p className="text-sm text-white/75 mb-5 leading-relaxed line-clamp-2">{svc.description}</p>
         <div className="flex items-center justify-between">
-          <a
-            href="/booking"
+          <Link
+            href={`/booking?service=${svc.slug}`}
             className="bg-white text-saudi-blue text-xs font-bold px-5 py-2.5 rounded-full flex items-center gap-2 hover:bg-saudi-orange hover:text-white transition-all"
           >
             Apply Now →
-          </a>
+          </Link>
           <span className="text-2xl font-bold text-white">£{svc.price_usd}</span>
         </div>
       </div>

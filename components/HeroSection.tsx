@@ -12,15 +12,30 @@ export default function HeroSection() {
   return (
     <section id="home" className="relative flex min-h-screen items-center">
       {/* Background */}
-      <div className="absolute inset-0 z-0">
+      {/* <div className="absolute inset-0 z-0">
         <img
           src="/images/man-with-visa.png"
           alt="Hero Background"
           className="h-full w-full object-cover object-center"
         />
-        {/* Dark overlay — stronger on mobile so text is always readable */}
         <div className="absolute inset-0 bg-black/55 md:bg-transparent md:[background:linear-gradient(to_right,rgba(0,0,0,0.72)_0%,rgba(0,0,0,0.48)_55%,rgba(0,0,0,0.18)_100%)]" />
-      </div>
+      </div> */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+    <video
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="auto"
+      className="h-full w-full object-cover object-center"
+    >
+      <source src="/saudivisa-service.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    {/* Dark overlay */}
+    <div className="absolute inset-0 bg-black/55 md:bg-transparent md:[background:linear-gradient(to_right,rgba(0,0,0,0.72)_0%,rgba(0,0,0,0.48)_55%,rgba(0,0,0,0.18)_100%)]" />
+  </div>
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-5 md:px-6">

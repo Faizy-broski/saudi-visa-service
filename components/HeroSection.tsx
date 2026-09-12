@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { m, useReducedMotion } from "framer-motion";
 import { ease } from "@/lib/motion";
+import HeroLeadForm from "@/components/HeroLeadForm";
 
 const t = { duration: 0.6, ease };
 
@@ -89,23 +90,10 @@ export default function HeroSection() {
             </m.div>
           </div>
 
-          {/* Right — hidden on mobile */}
-          <m.div
-            initial={reduce ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ ...t, delay: 0.2 }}
-            className="hidden md:flex flex-col justify-end text-white md:text-right"
-          >
-            <h2 className="mb-4 text-[clamp(28px,4vw,52px)] leading-[1.1] font-semibold">
-              Travel <br />
-              Made Easy
-            </h2>
-
-            <p className="max-w-[280px] text-[13px] leading-[1.7] opacity-90 md:ml-auto">
-              Trusted visa experts helping you reach Saudi Arabia with
-              confidence and peace of mind.
-            </p>
-          </m.div>
+          {/* Right — lead gen form */}
+          <div className="flex flex-col justify-center md:justify-end">
+            <HeroLeadForm />
+          </div>
         </div>
       </div>
     </section>

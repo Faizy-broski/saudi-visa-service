@@ -38,11 +38,15 @@ export default async function AdminDashboard() {
     { data: recentInquiries, count: totalInquiries },
     { data: chartBookings },
     { data: allServices },
+    { data: recentLeads, count: totalLeads },
+    { count: newLeadsCount },
   ] = await Promise.all([
     supabase.from('visa_applications').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(8),
     supabase.from('contact_messages').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(5),
     supabase.from('visa_applications').select('created_at, amount_usd').gte('created_at', sevenDaysAgo.toISOString()),
     supabase.from('visa_services').select('id, name, active'),
+    supabase.from('leads').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(5),
+    supabase.from('leads').select('*', { count: 'exact', head: true }).eq('status', 'new'),
   ]);
 
   const apps = allBookings ?? [];
@@ -50,6 +54,7 @@ export default async function AdminDashboard() {
   const approved = apps.filter((a) => a.status === 'approved').length;
   const revenue = apps.reduce((s, a) => s + (Number(a.amount_usd) || 0), 0);
   const unreadInquiries = (recentInquiries ?? []).filter((i) => !i.replied).length;
+  const newLeads = newLeadsCount ?? 0;
 
   // Build 7-day chart data
   const days: { label: string; date: string; value: number }[] = [];
@@ -217,6 +222,7 @@ export default async function AdminDashboard() {
           <div className="space-y-2">
             {[
               { label: 'View All Bookings', href: '/admin/bookings', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>, count: totalBookings ?? 0 },
+              { label: 'View Leads', href: '/admin/leads', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, count: totalLeads ?? 0, badge: newLeads },
               { label: 'View Inquiries', href: '/admin/inquiries', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>, count: totalInquiries ?? 0, badge: unreadInquiries },
               { label: 'Manage Services', href: '/admin/services', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>, count: (allServices ?? []).filter(s => s.active).length },
               { label: 'Settings', href: '/admin/settings', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>, count: null },
@@ -302,6 +308,65 @@ export default async function AdminDashboard() {
               )}
             </tbody>
           </table>
+        </div>
+      </div>
+
+      {/* Recent leads */}
+      <div className="rounded-2xl overflow-hidden bg-white" style={{ border: '1px solid #eef2f7', boxShadow: '0 2px 12px rgba(10,56,90,0.04)' }}>
+        <div className="px-6 py-4 flex items-center justify-between border-b" style={{ borderColor: '#eef2f7', background: '#f8fbff' }}>
+          <div className="flex items-center gap-2">
+            <div>
+              <h3 className="font-bold" style={{ color: '#0A385A' }}>Recent Leads</h3>
+              <p className="text-xs mt-0.5" style={{ color: '#9ca3af' }}>Latest submissions from the hero form</p>
+            </div>
+            {newLeads > 0 && (
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#fff7ed', color: '#ea580c' }}>{newLeads} new</span>
+            )}
+          </div>
+          <Link href="/admin/leads" className="text-xs font-bold px-4 py-2 rounded-lg transition-opacity hover:opacity-85" style={{ background: 'linear-gradient(to right,#3CA5D4,#0E3254)', color: '#fff' }}>
+            View all →
+          </Link>
+        </div>
+        <div className="divide-y" style={{ borderColor: '#f3f4f6' }}>
+          {(recentLeads ?? []).map((lead) => (
+            <div key={lead.id} className="px-6 py-4 flex items-start gap-4 hover:bg-saudi-light-blue transition-colors">
+              <div className="w-9 h-9 rounded-full shrink-0 flex items-center justify-center text-white text-xs font-bold"
+                style={{ background: lead.status === 'new' ? 'linear-gradient(135deg,#da6d3f,#b45309)' : 'linear-gradient(135deg,#9ca3af,#6b7280)' }}>
+                {(lead.name ?? '?').charAt(0).toUpperCase()}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5 flex-wrap">
+                  <span className="font-semibold text-sm" style={{ color: '#0A385A' }}>{lead.name}</span>
+                  <span className="text-xs truncate" style={{ color: '#9ca3af' }}>{lead.email}</span>
+                </div>
+                <p className="text-xs line-clamp-1" style={{ color: '#6b7280' }}>
+                  {lead.visa_interest || 'General enquiry'}{lead.phone ? ` · ${lead.phone}` : ''}
+                </p>
+              </div>
+              <div className="shrink-0 text-right">
+                <div className="text-xs mb-1" style={{ color: '#9ca3af' }}>
+                  {new Date(lead.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+                </div>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full capitalize"
+                  style={{ background: lead.status === 'new' ? '#fff7ed' : '#f0fdf4', color: lead.status === 'new' ? '#ea580c' : '#16a34a' }}>
+                  {lead.status}
+                </span>
+              </div>
+            </div>
+          ))}
+          {(recentLeads ?? []).length === 0 && (
+            <div className="px-6 py-14 text-center">
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: '#f8fbff', border: '1px solid #eef2f7' }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth={1.5} className="w-6 h-6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                </div>
+                <div>
+                  <p className="font-semibold text-sm" style={{ color: '#374151' }}>No leads yet</p>
+                  <p className="text-xs mt-0.5" style={{ color: '#9ca3af' }}>Hero form submissions will appear here</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

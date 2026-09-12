@@ -43,6 +43,20 @@ export interface ContactMessage {
   read: boolean
 }
 
+export type LeadStatus = 'new' | 'contacted' | 'converted' | 'closed'
+
+export interface Lead {
+  id: string
+  created_at: string
+  name: string
+  email: string
+  phone: string | null
+  visa_interest: string | null
+  message: string | null
+  status: LeadStatus
+  source: string
+}
+
 export interface Testimonial {
   id: string
   created_at: string

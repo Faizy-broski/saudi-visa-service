@@ -24,10 +24,12 @@ export default function PageHero({
 }: PageHeroProps) {
   return (
     <section
-      className="relative overflow-hidden pt-32 pb-14 md:pt-44 md:pb-24 text-white relative overflow-hidden bg-cover bg-center bg-no-repeat"
+      className="relative overflow-hidden pt-32 pb-14 md:pt-44 md:pb-24 text-white bg-cover bg-center bg-no-repeat"
       // style={{ background: 'linear-gradient(135deg, #0A385A 0%, #1a6498 50%, #3CA5D4 100%)' }}
       style={{
-        backgroundImage: `url('/images/${image}')`,
+        backgroundImage: image
+          ? `url('/images/${image}')`
+          : "linear-gradient(135deg, #0A385A 0%, #1a6498 50%, #3CA5D4 100%)",
       }}
     >
       {/* <div

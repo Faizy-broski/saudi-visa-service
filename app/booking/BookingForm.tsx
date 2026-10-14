@@ -89,10 +89,10 @@ function FileUploadField({
 
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#0A385A', opacity: 0.5 }}>
+      <label className="text-[11px] font-bold uppercase tracking-wider" style={{ color: '#0A385A' }}>
         {label} {required && <span style={{ color: '#ef4444' }}>*</span>}
       </label>
-      {hint && <p className="text-[11px]" style={{ color: '#9ca3af', marginTop: '-4px' }}>{hint}</p>}
+      {hint && <p className="text-xs" style={{ color: '#64748b', marginTop: '-4px' }}>{hint}</p>}
 
       {value ? (
         <div className="flex items-center gap-4 p-4 rounded-2xl border" style={{ borderColor: '#3CA5D4', background: '#f0f9ff' }}>
@@ -119,16 +119,16 @@ function FileUploadField({
         <button
           type="button"
           onClick={() => ref.current?.click()}
-          className="w-full rounded-2xl border-2 border-dashed p-6 flex flex-col items-center gap-2 transition-all hover:border-[#3CA5D4] hover:bg-[#f0f9ff]"
-          style={{ borderColor: error ? '#ef4444' : '#e5e7eb' }}
+          className="w-full rounded-2xl border-2 border-dashed p-6 flex flex-col items-center gap-2 bg-[#f5f9fd] transition-all hover:border-[#3CA5D4] hover:bg-[#eaf5fc]"
+          style={{ borderColor: error ? '#ef4444' : '#a9c8de' }}
         >
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: '#f8fbff' }}>
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: '#dff0fa' }}>
             <svg viewBox="0 0 24 24" fill="none" stroke="#3CA5D4" strokeWidth={1.5} className="w-5 h-5">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" />
             </svg>
           </div>
           <div className="text-sm font-semibold" style={{ color: '#0A385A' }}>Click to upload</div>
-          <div className="text-xs" style={{ color: '#9ca3af' }}>
+          <div className="text-xs" style={{ color: '#64748b' }}>
             {accept.replace(/\./g, '').toUpperCase().split(',').join(', ')} · Max {maxMB}MB
           </div>
         </button>
@@ -152,11 +152,11 @@ function sanitizePassport(value: string): string {
 
 /* ─── Input utilities ─── */
 function inputCls(err?: boolean) {
-  return `w-full rounded-xl border text-sm p-3.5 bg-white focus:outline-none transition-colors ${err ? 'border-red-400' : 'border-gray-200 focus:border-[#3CA5D4]'}`;
+  return `w-full rounded-xl border text-sm px-4 py-3.5 text-[#0A385A] placeholder:text-[#94a3b8] focus:outline-none focus:bg-white focus:ring-4 transition-all ${err ? 'border-red-400 bg-red-50/40 focus:ring-red-100' : 'border-[#c9d8e6] bg-[#f5f9fd] hover:border-[#8fbcd9] focus:border-[#3CA5D4] focus:ring-[#3CA5D4]/15'}`;
 }
 function Label({ text, required }: { text: string; required?: boolean }) {
   return (
-    <label className="text-[10px] font-bold uppercase tracking-widest block mb-1.5" style={{ color: '#0A385A', opacity: 0.5 }}>
+    <label className="text-[11px] font-bold uppercase tracking-wider block mb-2" style={{ color: '#0A385A' }}>
       {text} {required && <span style={{ color: '#ef4444' }}>*</span>}
     </label>
   );
@@ -176,14 +176,14 @@ function SectionHeading({ number, title, subtitle }: { number: string; title: st
         {number}
       </div>
       <div>
-        <h2 className="text-lg font-bold leading-tight" style={{ color: '#0A385A' }}>{title}</h2>
-        <p className="text-sm mt-0.5" style={{ color: '#9ca3af' }}>{subtitle}</p>
+        <h2 className="text-xl font-bold leading-tight" style={{ color: '#0A385A' }}>{title}</h2>
+        <p className="text-sm mt-0.5" style={{ color: '#64748b' }}>{subtitle}</p>
       </div>
     </div>
   );
 }
 function Divider() {
-  return <div className="border-t my-8" style={{ borderColor: '#eef2f7' }} />;
+  return <div className="border-t my-10" style={{ borderColor: '#dfe8f1' }} />;
 }
 
 /* ─── Stripe card options ─── */
@@ -387,7 +387,7 @@ const selectedServiceSlug = searchParams.get('service');
 
       {/* Service info card when selected */}
       {selectedService && (
-        <div className="mt-4 rounded-2xl p-4" style={{ background: '#f8fbff', border: '1px solid #eef2f7' }}>
+        <div className="mt-4 rounded-2xl p-4" style={{ background: '#f2f8fc', border: '1px solid #d6e6f2' }}>
           <div className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#da6d3f' }}>
             {selectedService.tagline}
           </div>
@@ -423,7 +423,7 @@ const selectedServiceSlug = searchParams.get('service');
 
       {/* ── Section 2: Personal Information ── */}
       <SectionHeading number="2" title="Personal Information" subtitle="Enter your details exactly as they appear on your passport." />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
         <div id="field-firstName">
           <FieldWrap error={errors.firstName}>
             <Label text="First Name" required />
@@ -481,7 +481,7 @@ const selectedServiceSlug = searchParams.get('service');
 
       {/* ── Section 3: Travel Details ── */}
       <SectionHeading number="3" title="Travel Details" subtitle="Tell us about your travel plans." />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
         <div id="field-travelDate">
           <FieldWrap error={errors.travelDate}>
             <Label text="Preferred Travel Date" required />
@@ -578,7 +578,7 @@ const selectedServiceSlug = searchParams.get('service');
 
       {/* Booking summary */}
       {form.serviceId && (
-        <div className="rounded-2xl p-5 mb-5 space-y-3" style={{ background: '#f8fbff', border: '1px solid #eef2f7' }}>
+        <div className="rounded-2xl p-5 mb-5 space-y-3" style={{ background: '#f2f8fc', border: '1px solid #d6e6f2' }}>
           <div className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#da6d3f' }}>Booking Summary</div>
           <div className="grid grid-cols-2 gap-3 text-sm">
             {[
@@ -590,7 +590,7 @@ const selectedServiceSlug = searchParams.get('service');
               ['Passport No.', form.passportNumber || '—'],
             ].map(([l, v]) => (
               <div key={l}>
-                <div className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: '#9ca3af' }}>{l}</div>
+                <div className="text-[10px] font-semibold uppercase tracking-wide mb-0.5" style={{ color: '#64748b' }}>{l}</div>
                 <div className="font-semibold truncate" style={{ color: '#0A385A' }}>{v}</div>
               </div>
             ))}
@@ -620,13 +620,13 @@ const selectedServiceSlug = searchParams.get('service');
 
         <FieldWrap>
           <Label text="Billing Email" />
-          <input type="email" value={form.email} readOnly className="w-full rounded-xl border border-gray-200 text-sm p-3.5 bg-gray-50 text-gray-500 cursor-not-allowed" placeholder="Fill in your email above" />
+          <input type="email" value={form.email} readOnly className="w-full rounded-xl border border-[#c9d8e6] text-sm px-4 py-3.5 bg-[#eef3f8] text-[#475569] cursor-not-allowed" placeholder="Fill in your email above" />
         </FieldWrap>
 
         <div id="field-card">
           <FieldWrap error={errors.card ?? cardError}>
             <Label text="Card Details" required />
-            <div className={`rounded-xl border p-3.5 bg-white transition-colors ${(errors.card || cardError) ? 'border-red-400' : 'border-gray-200'}`} style={{ minHeight: '44px' }}>
+            <div className={`rounded-xl border px-4 py-4 bg-[#f5f9fd] transition-colors ${(errors.card || cardError) ? 'border-red-400' : 'border-[#c9d8e6] focus-within:border-[#3CA5D4] focus-within:bg-white'}`} style={{ minHeight: '50px' }}>
               <CardElement options={CARD_OPTIONS} onChange={(ev) => { setCardError(ev.error?.message ?? ''); setCardReady(ev.complete); }} />
             </div>
           </FieldWrap>
@@ -679,7 +679,7 @@ export default function BookingForm({ services, stripeKey }: { services: VisaSer
         <p className="text-sm leading-relaxed mb-6" style={{ color: '#6b7280' }}>
           Your payment was successful and your visa application has been submitted. A confirmation email has been sent to <strong>{confirmed.email}</strong>.
         </p>
-        <div className="rounded-2xl p-5 mb-6" style={{ background: '#f8fbff', border: '1px solid #eef2f7' }}>
+        <div className="rounded-2xl p-5 mb-6" style={{ background: '#f2f8fc', border: '1px solid #d6e6f2' }}>
           <div className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#9ca3af' }}>Reference Number</div>
           <div className="text-xl font-bold font-mono" style={{ color: '#0A385A' }}>{confirmed.ref}</div>
         </div>
@@ -689,13 +689,15 @@ export default function BookingForm({ services, stripeKey }: { services: VisaSer
   }
 
   return (
-    <div className="container mx-auto px-4 md:px-6 py-10 md:py-12 max-w-3xl">
-      <Elements stripe={stripePromise}>
-        <BookingFormInner
-          services={services}
-          onSuccess={(ref, email) => setConfirmed({ ref, email })}
-        />
-      </Elements>
+    <div className="px-4 md:px-6 py-10 md:py-14" style={{ background: '#f8fbff' }}>
+      <div className="mx-auto max-w-5xl rounded-3xl bg-white p-6 md:p-12 shadow-[0_10px_40px_rgba(10,56,90,0.08)] border" style={{ borderColor: '#eef2f7' }}>
+        <Elements stripe={stripePromise}>
+          <BookingFormInner
+            services={services}
+            onSuccess={(ref, email) => setConfirmed({ ref, email })}
+          />
+        </Elements>
+      </div>
     </div>
   );
 }

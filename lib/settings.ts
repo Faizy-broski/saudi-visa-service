@@ -33,6 +33,7 @@ export async function getAllSettings(): Promise<Record<string, string>> {
 export async function getActiveStripeKeys(): Promise<{
   secretKey: string;
   publishableKey: string;
+  webhookSecret: string;
   mode: 'test' | 'live';
 }> {
   const mode = ((await getSetting('stripe_mode')) || 'test') as 'test' | 'live';
@@ -40,7 +41,8 @@ export async function getActiveStripeKeys(): Promise<{
   if (mode === 'live') {
     const secretKey = (await getSetting('stripe_live_secret_key')) || '';
     const publishableKey = (await getSetting('stripe_live_publishable_key')) || '';
-    return { secretKey, publishableKey, mode };
+    const webhookSecret = (await getSetting('stripe_live_webhook_secret')) || '';
+    return { secretKey, publishableKey, webhookSecret, mode };
   }
 
   // test mode — fall back to legacy single-key fields so existing configs keep working
@@ -50,6 +52,7 @@ export async function getActiveStripeKeys(): Promise<{
   const publishableKey =
     (await getSetting('stripe_test_publishable_key')) ||
     (await getSettingOrEnv('stripe_publishable_key', 'NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY'));
+  const webhookSecret = await getSettingOrEnv('stripe_test_webhook_secret', 'STRIPE_WEBHOOK_SECRET');
 
-  return { secretKey, publishableKey, mode };
+  return { secretKey, publishableKey, webhookSecret, mode };
 }

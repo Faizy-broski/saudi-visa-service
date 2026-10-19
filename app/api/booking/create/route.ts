@@ -3,6 +3,11 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { getSettingOrEnv, getActiveStripeKeys } from "@/lib/settings";
 import Stripe from "stripe";
 import nodemailer from "nodemailer";
+import {
+  paymentMismatch,
+  findBookingForPayment,
+  linkPaymentToBooking,
+} from "@/lib/stripe-payments";
 
 export async function POST(request: NextRequest) {
   try {
@@ -25,7 +30,6 @@ export async function POST(request: NextRequest) {
     const numTravelers = parseInt(get("numTravelers")) || 1;
     const departureCity = get("departureCity") || null;
     const specialRequirements = get("specialRequirements") || null;
-    const amountUsd = parseFloat(get("amountUsd")) || 0;
     const serviceName = get("serviceName");
 
     if (!paymentIntentId || !email || !firstName) {
@@ -55,12 +59,20 @@ export async function POST(request: NextRequest) {
     const stripe = new Stripe(stripeSecretKey, {} as any);
     const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
 
-    if (paymentIntent.status !== "succeeded") {
-      return NextResponse.json(
-        { error: "Payment not confirmed" },
-        { status: 400 },
-      );
+    const mismatch = paymentMismatch(paymentIntent, { serviceId, numTravelers });
+    if (mismatch) {
+      return NextResponse.json({ error: mismatch }, { status: 400 });
     }
+
+    // Each payment can only ever create one booking. A repeat submit
+    // (double click, retry) gets the original reference back.
+    const existingRef = await findBookingForPayment(paymentIntentId);
+    if (existingRef) {
+      return NextResponse.json({ success: true, referenceNumber: existingRef });
+    }
+
+    // Use what Stripe actually charged, never an amount sent by the browser.
+    const amountUsd = paymentIntent.amount / 100;
 
     // 2. Upload documents to Supabase Storage
     const supabase = createAdminClient();
@@ -149,9 +161,16 @@ export async function POST(request: NextRequest) {
       .select("reference_number")
       .single();
 
+    // 23505 = unique violation: a concurrent request already saved this payment's booking.
+    if (dbErr?.code === "23505") {
+      const ref = await findBookingForPayment(paymentIntentId);
+      return NextResponse.json({ success: true, referenceNumber: ref ?? refId });
+    }
+
     const referenceNumber =
       dbErr || !booking ? refId : booking.reference_number;
     if (dbErr) console.error("[db]", dbErr.message);
+    else await linkPaymentToBooking(paymentIntentId, referenceNumber);
 
     // 4. Send confirmation emails
     try {

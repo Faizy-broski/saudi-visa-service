@@ -21,6 +21,7 @@ interface Settings {
   stripe_mode: string;
   stripe_test_publishable_key: string; stripe_test_secret_key: string;
   stripe_live_publishable_key: string; stripe_live_secret_key: string;
+  stripe_test_webhook_secret: string; stripe_live_webhook_secret: string;
   site_name: string; support_phone: string;
 }
 
@@ -30,6 +31,7 @@ const DEFAULTS: Settings = {
   stripe_mode: 'test',
   stripe_test_publishable_key: '', stripe_test_secret_key: '',
   stripe_live_publishable_key: '', stripe_live_secret_key: '',
+  stripe_test_webhook_secret: '', stripe_live_webhook_secret: '',
   site_name: 'Saudi Visa Service', support_phone: '',
 };
 
@@ -234,7 +236,7 @@ export default function SettingsPage() {
                 )}
               </div>
               <div className="rounded-xl p-4 text-xs" style={{ background: '#fffbeb', color: '#92400e', border: '1px solid #fde68a' }}>
-                Use <strong>pk_test_...</strong> and <strong>sk_test_...</strong> keys from your Stripe dashboard → Developers → API keys.
+                Use <strong>pk_test_...</strong> and <strong>sk_test_...</strong> keys from your Stripe dashboard → Developers → API keys. The webhook secret comes from Developers → Webhooks → your endpoint.
               </div>
               <Row label="Test Publishable Key (pk_test_...)">
                 <Input value={settings.stripe_test_publishable_key} onChange={set('stripe_test_publishable_key')} placeholder="pk_test_51..." />
@@ -246,6 +248,9 @@ export default function SettingsPage() {
                     {showTestSecret ? <EyeOff /> : <EyeOpen />}
                   </button>
                 </div>
+              </Row>
+              <Row label="Test Webhook Signing Secret (whsec_...)">
+                <Input value={settings.stripe_test_webhook_secret} onChange={set('stripe_test_webhook_secret')} placeholder="whsec_..." type={showTestSecret ? 'text' : 'password'} />
               </Row>
             </div>
 
@@ -261,7 +266,7 @@ export default function SettingsPage() {
                 )}
               </div>
               <div className="rounded-xl p-4 text-xs" style={{ background: '#f0fdf4', color: '#14532d', border: '1px solid #bbf7d0' }}>
-                Use <strong>pk_live_...</strong> and <strong>sk_live_...</strong> keys from your Stripe dashboard → Developers → API keys.
+                Use <strong>pk_live_...</strong> and <strong>sk_live_...</strong> keys from your Stripe dashboard → Developers → API keys. The webhook secret comes from Developers → Webhooks → your endpoint.
               </div>
               <Row label="Live Publishable Key (pk_live_...)">
                 <Input value={settings.stripe_live_publishable_key} onChange={set('stripe_live_publishable_key')} placeholder="pk_live_51..." />
@@ -273,6 +278,9 @@ export default function SettingsPage() {
                     {showLiveSecret ? <EyeOff /> : <EyeOpen />}
                   </button>
                 </div>
+              </Row>
+              <Row label="Live Webhook Signing Secret (whsec_...)">
+                <Input value={settings.stripe_live_webhook_secret} onChange={set('stripe_live_webhook_secret')} placeholder="whsec_..." type={showLiveSecret ? 'text' : 'password'} />
               </Row>
             </div>
 

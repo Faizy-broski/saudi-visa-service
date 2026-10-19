@@ -3,6 +3,7 @@ import { getStripe } from '@/lib/stripe-server';
 import { createTransporter } from '@/lib/mailer';
 import { getSettingOrEnv } from '@/lib/settings';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { findBookingForPayment, linkPaymentToBooking } from '@/lib/stripe-payments';
 
 interface BookingPayload {
   fullName: string;
@@ -231,6 +232,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Payment not confirmed' }, { status: 400 });
     }
 
+    // Each payment can only ever create one booking.
+    const existingRef = await findBookingForPayment(paymentIntentId);
+    if (existingRef) {
+      return NextResponse.json({ success: true, referenceNumber: existingRef });
+    }
+
     // Map display visa type to DB enum value
     const visaTypeMap: Record<string, string> = {
       'Umrah Visa': 'umrah',
@@ -255,6 +262,8 @@ export async function POST(request: NextRequest) {
         message: message || null,
         status: 'pending',
         consultant_notes: null,
+        amount_usd: paymentIntent.amount / 100,
+        stripe_payment_intent_id: paymentIntentId,
       })
       .select('reference_number')
       .single();
@@ -262,8 +271,16 @@ export async function POST(request: NextRequest) {
     const referenceNumber: string =
       dbError || !appRecord ? `SVS-${Date.now()}` : appRecord.reference_number;
 
+    // 23505 = unique violation: a concurrent request already saved this payment's booking.
+    if (dbError?.code === '23505') {
+      const ref = await findBookingForPayment(paymentIntentId);
+      return NextResponse.json({ success: true, referenceNumber: ref ?? referenceNumber });
+    }
+
     if (dbError) {
       console.error('[complete-booking] DB error:', dbError.message);
+    } else {
+      await linkPaymentToBooking(paymentIntentId, referenceNumber);
     }
 
     // 3. Send emails (non-fatal — don't block the response if mail fails)

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getActiveStripeKeys } from '@/lib/settings';
 import { createAdminClient } from '@/lib/supabase/admin';
 import Stripe from 'stripe';
+import { PAYMENT_SOURCE } from '@/lib/stripe-payments';
 
 const FALLBACK_SERVICES: Record<string, { name: string; price_usd: number }> = {
   umrah:   { name: 'Umrah Visa',   price_usd: 199 },
@@ -69,6 +70,7 @@ export async function POST(request: NextRequest) {
       amount: amountCents,
       currency: 'gbp',
       metadata: {
+        source: PAYMENT_SOURCE,
         serviceId,
         serviceName: service.name,
         customerEmail: customerEmail ?? '',

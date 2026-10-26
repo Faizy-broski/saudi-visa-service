@@ -3,6 +3,14 @@ import { createAdminClient } from './supabase/admin';
 import { createTransporter } from './mailer';
 import { getSettingOrEnv } from './settings';
 
+// The Stripe account is shared with other sites, so every PaymentIntent this
+// site creates is tagged; the webhook ignores anything without the tag.
+export const PAYMENT_SOURCE = 'saudi-visa-service';
+
+export function isOwnPayment(pi: Stripe.PaymentIntent): boolean {
+  return pi.metadata?.source === PAYMENT_SOURCE;
+}
+
 // A payment with no booking after this long is treated as orphaned.
 export const ORPHAN_AFTER_MS = 10 * 60 * 1000;
 

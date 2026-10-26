@@ -2,7 +2,7 @@ import { NextRequest, NextResponse, after } from 'next/server';
 import Stripe from 'stripe';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { getActiveStripeKeys } from '@/lib/settings';
-import { ORPHAN_AFTER_MS, alertOrphanPayments, findBookingForPayment } from '@/lib/stripe-payments';
+import { ORPHAN_AFTER_MS, alertOrphanPayments, findBookingForPayment, isOwnPayment } from '@/lib/stripe-payments';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -33,6 +33,8 @@ export async function POST(request: NextRequest) {
       case 'payment_intent.succeeded':
       case 'payment_intent.payment_failed': {
         const pi = event.data.object;
+        // Payments from the other sites on this Stripe account: acknowledge and ignore.
+        if (!isOwnPayment(pi)) break;
         const succeeded = event.type === 'payment_intent.succeeded';
         const bookingRef = succeeded ? await findBookingForPayment(pi.id) : null;
 

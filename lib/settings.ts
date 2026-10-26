@@ -41,7 +41,7 @@ export async function getActiveStripeKeys(): Promise<{
   if (mode === 'live') {
     const secretKey = (await getSetting('stripe_live_secret_key')) || '';
     const publishableKey = (await getSetting('stripe_live_publishable_key')) || '';
-    const webhookSecret = (await getSetting('stripe_live_webhook_secret')) || '';
+    const webhookSecret = await getSettingOrEnv('stripe_live_webhook_secret', 'STRIPE_WEBHOOK_SECRET');
     return { secretKey, publishableKey, webhookSecret, mode };
   }
 
